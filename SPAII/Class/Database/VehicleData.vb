@@ -199,13 +199,30 @@ Public Structure VehicleData
         UniqueID = vehicle.UniqueID
     End Sub
 
+    ''' <summary>
+    ''' Saves the vehicle data to an XML file.
+    ''' On Enhanced Edition, this writes to LocalAppData via PathConfig.
+    ''' </summary>
     Public Sub Save()
-        Dim ser = New XmlSerializer(GetType(VehicleData))
-        Dim writer As TextWriter = New StreamWriter(FileName)
-        ser.Serialize(writer, Me)
-        writer.Close()
+        Try
+            ' Ensure directory exists before writing (important for Enhanced Edition)
+            Dim directory As String = Path.GetDirectoryName(FileName)
+            If Not String.IsNullOrEmpty(directory) AndAlso Not IO.Directory.Exists(directory) Then
+                IO.Directory.CreateDirectory(directory)
+            End If
+
+            Dim ser = New XmlSerializer(GetType(VehicleData))
+            Using writer As TextWriter = New StreamWriter(FileName)
+                ser.Serialize(writer, Me)
+            End Using
+        Catch ex As Exception
+            Logger.Log($"Failed to save vehicle data: {ex.Message}")
+        End Try
     End Sub
 
+    ''' <summary>
+    ''' Reads the vehicle data from an XML file.
+    ''' </summary>
     Public Function ReadFromFile() As VehicleData
         If Not File.Exists(FileName) Then
             Return New VehicleData(FileName)
@@ -213,11 +230,12 @@ Public Structure VehicleData
 
         Try
             Dim ser = New XmlSerializer(GetType(VehicleData))
-            Dim reader As TextReader = New StreamReader(FileName)
-            Dim instance = CType(ser.Deserialize(reader), VehicleData)
-            reader.Close()
-            Return instance
+            Using reader As TextReader = New StreamReader(FileName)
+                Dim instance = CType(ser.Deserialize(reader), VehicleData)
+                Return instance
+            End Using
         Catch ex As Exception
+            Logger.Log($"Failed to read vehicle data: {ex.Message}")
             Return New VehicleData(FileName)
         End Try
     End Function

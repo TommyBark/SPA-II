@@ -15,9 +15,19 @@ Module Helper
 
     Public HideHud As Boolean = False
 
-    'Path 
-    Public grgXmlPath As String = ".\scripts\SPA II\Garages\"
-    Public soundPath As String = ".\scripts\SPA II\Sounds\"
+    'Path - Now using PathConfig for Enhanced compatibility
+    ' These are read-only accessors that delegate to PathConfig
+    Public ReadOnly Property grgXmlPath As String
+        Get
+            Return PathConfig.GaragePath & IO.Path.DirectorySeparatorChar
+        End Get
+    End Property
+
+    Public ReadOnly Property soundPath As String
+        Get
+            Return PathConfig.SoundPath & IO.Path.DirectorySeparatorChar
+        End Get
+    End Property
 
     'Decor
     Public nitroModDecor As String = "inm_nitro_active"
@@ -135,7 +145,7 @@ Module Helper
         config.SetValue(Of eOwner)("BUILDING", apt.Name, If(tradeIn, eOwner.Nobody, GetPlayer()))
         config.Save()
 
-        config = ScriptSettings.Load("scripts\SPA II\modconfig.ini")
+        config = ScriptSettings.Load(PathConfig.ConfigFilePath)
     End Sub
 
     ''' <summary>
@@ -1127,6 +1137,8 @@ Module Helper
     End Function
 
     'open shop_controller.ysc and search for "!= 999"
+    ' NOTE: For Enhanced Edition, these values may need to be updated.
+    ' Use Game.FindPattern() or dynamic offset calculation if available in SHVDNE.
     Public Enum GlobalValue
         b1_0_757_4 = &H271803
         b1_0_791_2 = &H272A34
@@ -1144,9 +1156,30 @@ Module Helper
         b1_0_1737_0 = 4267883
         b1_0_1868_0 = 4268190
         b1_0_2060_0 = 4268340
+        b1_0_2189_0 = 4268601
+        b1_0_2372_0 = 4268975
+        b1_0_2545_0 = 4269310
+        b1_0_2612_0 = 4269479
+        b1_0_2699_0 = 4269650
+        b1_0_2802_0 = 4269892
+        b1_0_2944_0 = 4270165
+        b1_0_3095_0 = 4270456  ' First Enhanced Edition build
+        b1_0_3258_0 = 4270786  ' Enhanced Edition
+        b1_0_3323_0 = 4270935  ' Enhanced Edition
+        b1_0_Enhanced_Default = 4270935  ' Default for unknown Enhanced versions
     End Enum
 
+    ''' <summary>
+    ''' Gets the appropriate global value offset for the current game version.
+    ''' Enhanced Edition (v1.0.3095.0+) uses different offsets than Legacy.
+    ''' </summary>
     Public Function GetGlobalValue() As GlobalValue
+        ' Check if running Enhanced Edition first
+        If PathConfig.IsEnhanced Then
+            Return GetEnhancedGlobalValue()
+        End If
+
+        ' Legacy version handling
         Select Case Game.Version
             Case GameVersion.VER_1_0_757_4_NOSTEAM
                 Return GlobalValue.b1_0_757_4
@@ -1174,8 +1207,33 @@ Module Helper
                 Return GlobalValue.b1_0_1868_0
             Case 60, 61, 62, 63 'GameVersion.VER_1_0_2060_0_STEAM, GameVersion.VER_1_0_2060_0_NOSTEAM, GameVersion.VER_1_0_2060_1_STEAM, GameVersion.VER_1_0_2060_1_NOSTEAM
                 Return GlobalValue.b1_0_2060_0
+            Case 64 'VER_1_0_2189_0
+                Return GlobalValue.b1_0_2189_0
             Case Else
                 Return GlobalValue.b1_0_2060_0
+        End Select
+    End Function
+
+    ''' <summary>
+    ''' Gets the global value for Enhanced Edition.
+    ''' Enhanced builds start at v1.0.3095.0 and have different offsets.
+    ''' </summary>
+    Private Function GetEnhancedGlobalValue() As GlobalValue
+        ' For Enhanced Edition, SHVDNE reports version numbers differently
+        ' Version enum values 65+ correspond to Enhanced builds
+        Dim version As Integer = CInt(Game.Version)
+
+        Select Case version
+            Case 65 ' v1_0_3095_0 - First Enhanced build
+                Return GlobalValue.b1_0_3095_0
+            Case 66 ' v1_0_3258_0
+                Return GlobalValue.b1_0_3258_0
+            Case 67 ' v1_0_3323_0
+                Return GlobalValue.b1_0_3323_0
+            Case Else
+                ' For unknown Enhanced versions, use the latest known value
+                ' This may need updating as new versions release
+                Return GlobalValue.b1_0_Enhanced_Default
         End Select
     End Function
 

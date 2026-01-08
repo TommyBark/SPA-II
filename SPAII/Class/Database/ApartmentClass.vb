@@ -125,7 +125,13 @@ Public Class ApartmentClass
             .RefreshIndex()
         End With
 
-        If Not Directory.Exists($"{grgXmlPath}{GarageFilePath}") Then Directory.CreateDirectory($"{grgXmlPath}{GarageFilePath}")
+        ' Ensure garage directories exist (using PathConfig for Enhanced compatibility)
+        Try
+            Dim garagePath As String = $"{grgXmlPath}{GarageFilePath}"
+            If Not Directory.Exists(garagePath) Then Directory.CreateDirectory(garagePath)
+        Catch ex As Exception
+            Logger.Log($"Failed to create garage directory: {ex.Message}")
+        End Try
 
         If ApartmentType = eApartmentType.IPL Then
             StyleMenu = New UIMenu("", Game.GetGXTEntry("PM_APT_VARCAPS"), New Point(0, -107))

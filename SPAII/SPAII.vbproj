@@ -43,19 +43,31 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <!--
+    External library references.
+    Place these DLLs in the lib folder relative to the solution,
+    or update the HintPaths to your local GTA V scripts folder.
+  -->
   <ItemGroup>
     <Reference Include="iFruitAddon2">
-      <HintPath>E:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V\scripts\iFruitAddon2.dll</HintPath>
+      <HintPath>..\lib\iFruitAddon2.dll</HintPath>
     </Reference>
     <Reference Include="INMNativeUI">
-      <HintPath>E:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V\scripts\INMNativeUI.dll</HintPath>
+      <HintPath>..\lib\INMNativeUI.dll</HintPath>
     </Reference>
     <Reference Include="Metadata">
-      <HintPath>E:\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V\scripts\Metadata.dll</HintPath>
+      <HintPath>..\lib\Metadata.dll</HintPath>
     </Reference>
-    <Reference Include="ScriptHookVDotNet2, Version=2.10.9.0, Culture=neutral, processorArchitecture=AMD64">
+    <!--
+      For Enhanced Edition compatibility, use ScriptHookVDotNet Enhanced (SHVDNE):
+      https://github.com/Chiheb-Bacha/ScriptHookVDotNetEnhanced
+
+      The same DLL works for both Legacy and Enhanced editions.
+      Update the HintPath to point to your local ScriptHookVDotNet3.dll location.
+    -->
+    <Reference Include="ScriptHookVDotNet3">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V\ScriptHookVDotNet2.dll</HintPath>
+      <HintPath>..\lib\ScriptHookVDotNet3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -97,6 +109,7 @@
     <Compile Include="Class\Database\VehicleData.vb" />
     <Compile Include="Class\Helper.vb" />
     <Compile Include="Class\Logger.vb" />
+    <Compile Include="Class\PathConfig.vb" />
     <Compile Include="Class\INMNative.vb" />
     <Compile Include="Class\Garage\Mechanic.vb" />
     <Compile Include="Class\ApartmentProps.vb" />
@@ -143,9 +156,16 @@
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!--
+    Post-build event to copy output to GTA V scripts folder.
+    Update the paths below to match your GTA V installation location.
+    This works for both Legacy and Enhanced editions.
+  -->
   <PropertyGroup>
-    <PostBuildEvent>COPY "$(TargetDir)$(TargetFileName)" "E:\Program Files (x86)\Steam\SteamApps\common\Grand Theft Auto V\scripts"
-COPY "$(TargetDir)$(TargetName).pdb" "E:\Program Files (x86)\Steam\SteamApps\common\Grand Theft Auto V\scripts"</PostBuildEvent>
+    <PostBuildEvent>
+REM Update this path to your GTA V scripts folder
+REM COPY "$(TargetDir)$(TargetFileName)" "YOUR_GTA_V_PATH\scripts"
+REM COPY "$(TargetDir)$(TargetName).pdb" "YOUR_GTA_V_PATH\scripts"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,16 +1,27 @@
-﻿Imports GTA
+Imports System.IO
+Imports GTA
 
+''' <summary>
+''' Configuration helper that uses LocalAppData on Enhanced Edition
+''' for config file storage due to DirectStorage read-only filesystem.
+''' </summary>
 Module ConfigHelper
 
     'Config
-    Public config As ScriptSettings = ScriptSettings.Load("scripts\SPA II\modconfig.ini")
+    Public config As ScriptSettings
 
     Public DebugMode As Boolean = False
     Public OnlineMap As Boolean = True
     Public SoundVolume As Integer = 100
 
     Public Sub LoadModConfig()
-        config = ScriptSettings.Load("scripts\SPA II\modconfig.ini")
+        ' Ensure path config is initialized
+        PathConfig.Initialize()
+
+        ' On Enhanced, migrate data from legacy paths if needed
+        PathConfig.MigrateDataIfNeeded()
+
+        config = ScriptSettings.Load(PathConfig.ConfigFilePath)
 
         SoundVolume = config.GetValue(Of Integer)("SOUND", "Volume", 100)
         DebugMode = config.GetValue(Of Boolean)("SETTING", "DebugMode", False)
@@ -18,8 +29,11 @@ Module ConfigHelper
     End Sub
 
     Public Sub GenerateModConfig()
-        If Not IO.File.Exists("scripts\SPA II\modconfig.ini") Then
-            config = ScriptSettings.Load("scripts\SPA II\modconfig.ini")
+        ' Ensure directories exist
+        PathConfig.EnsureDirectoriesExist()
+
+        If Not IO.File.Exists(PathConfig.ConfigFilePath) Then
+            config = ScriptSettings.Load(PathConfig.ConfigFilePath)
 
             config.SetValue(Of Integer)("SOUND", "Volume", 100)
 
