@@ -127,9 +127,15 @@
     <None Include="Resources\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!--
+    Post-build event to copy output to GTA V scripts folder.
+    Update the paths below to match your GTA V installation location.
+  -->
   <PropertyGroup>
-    <PostBuildEvent>COPY "$(TargetDir)$(TargetFileName)" "E:\Program Files (x86)\Steam\SteamApps\common\Grand Theft Auto V\scripts\SPA II"
-COPY "$(TargetDir)$(TargetName).pdb" "E:\Program Files (x86)\Steam\SteamApps\common\Grand Theft Auto V\scripts\SPA II"</PostBuildEvent>
+    <PostBuildEvent>
+REM Update this path to your GTA V scripts\SPA II folder
+REM COPY "$(TargetDir)$(TargetFileName)" "YOUR_GTA_V_PATH\scripts\SPA II"
+REM COPY "$(TargetDir)$(TargetName).pdb" "YOUR_GTA_V_PATH\scripts\SPA II"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
