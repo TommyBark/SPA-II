@@ -15,7 +15,7 @@ Module Mechanic
     Public Sub LoadContacts()
         iFruit = New CustomiFruit
         iFruit.Contacts.Clear()
-        MechanicContact = New iFruitContact(Game.GetGXTEntry("CELL_E_MP0"))
+        MechanicContact = New iFruitContact(GetGXTEntry("CELL_E_MP0"))
         With MechanicContact
             .DialTimeout = 4000
             .Active = True
@@ -23,7 +23,7 @@ Module Mechanic
         End With
         iFruit.Contacts.Add(MechanicContact)
 
-        InsuranceContact = New iFruitContact(Game.GetGXTEntry("CELL_E_275"))
+        InsuranceContact = New iFruitContact(GetGXTEntry("CELL_E_275"))
         With InsuranceContact
             .DialTimeout = 4000
             .Active = True
@@ -31,7 +31,7 @@ Module Mechanic
         End With
         iFruit.Contacts.Add(InsuranceContact)
 
-        Dynasty8Contact = New iFruitContact(Game.GetGXTEntry("BLIP_267"))
+        Dynasty8Contact = New iFruitContact(GetGXTEntry("BLIP_267"))
         With Dynasty8Contact
             .DialTimeout = 4000
             .Active = True
@@ -39,7 +39,7 @@ Module Mechanic
         End With
         iFruit.Contacts.Add(Dynasty8Contact)
 
-        MechanicMenu = New UIMenu("", Game.GetGXTEntry("MPCT_MECHH"), New Point(0, -107))
+        MechanicMenu = New UIMenu("", GetGXTEntry("MPCT_MECHH"), New Point(0, -107))
         With MechanicMenu
             .SetBannerType(MenuBanner)
             .MouseEdgeEnabled = False
@@ -47,7 +47,7 @@ Module Mechanic
             MenuPool.Add(MechanicMenu)
         End With
 
-        MechanicAptMenu = New UIMenu("", Game.GetGXTEntry("MPCT_PERVEH1"), New Point(0, -107))
+        MechanicAptMenu = New UIMenu("", GetGXTEntry("MPCT_PERVEH1"), New Point(0, -107))
         With MechanicAptMenu
             .SetBannerType(MenuBanner)
             .MouseEdgeEnabled = False
@@ -55,7 +55,7 @@ Module Mechanic
             MenuPool.Add(MechanicAptMenu)
         End With
 
-        InsuranceMenu = New UIMenu("", Game.GetGXTEntry("MPCT_INSH"), New Point(0, -107))
+        InsuranceMenu = New UIMenu("", GetGXTEntry("MPCT_INSH"), New Point(0, -107))
         With InsuranceMenu
             .SetBannerType(MenuBanner)
             .MouseEdgeEnabled = False
@@ -63,17 +63,17 @@ Module Mechanic
             MenuPool.Add(InsuranceMenu)
         End With
 
-        Dynasty8Menu = New UIMenu("", Game.GetGXTEntry("BLIP_267").ToUpper, New Point(0, -107))
+        Dynasty8Menu = New UIMenu("", GetGXTEntry("BLIP_267").ToUpper, New Point(0, -107))
         With Dynasty8Menu
             .SetBannerType(MenuBanner)
             .MouseEdgeEnabled = False
-            .AddItem(New UIMenuItem(Game.GetGXTEntry("SC_MSC_PPY")) With {.Tag = "Buy"}) 'Property Purchase  SC_MSC_PPY
-            .AddItem(New UIMenuItem(Game.GetGXTEntry("MP_REP_PROP_0")) With {.Tag = "Sell"}) 'Trade in Property
+            .AddItem(New UIMenuItem(GetGXTEntry("SC_MSC_PPY")) With {.Tag = "Buy"}) 'Property Purchase  SC_MSC_PPY
+            .AddItem(New UIMenuItem(GetGXTEntry("MP_REP_PROP_0")) With {.Tag = "Sell"}) 'Trade in Property
             .RefreshIndex()
             MenuPool.Add(Dynasty8Menu)
         End With
 
-        Dynasty8BuyMenu = New UIMenu("", Game.GetGXTEntry("DEL_VEH_SEL0").ToUpper, New Point(0, -107))
+        Dynasty8BuyMenu = New UIMenu("", GetGXTEntry("DEL_VEH_SEL0").ToUpper, New Point(0, -107))
         With Dynasty8BuyMenu
             .SetBannerType(MenuBanner)
             .MouseEdgeEnabled = False
@@ -81,7 +81,7 @@ Module Mechanic
             MenuPool.Add(Dynasty8BuyMenu)
         End With
 
-        Dynasty8TradeMenu = New UIMenu("", Game.GetGXTEntry("DEL_VEH_SEL0").ToUpper, New Point(0, -107))
+        Dynasty8TradeMenu = New UIMenu("", GetGXTEntry("DEL_VEH_SEL0").ToUpper, New Point(0, -107))
         With Dynasty8TradeMenu
             .SetBannerType(MenuBanner)
             .MouseEdgeEnabled = False
@@ -97,7 +97,7 @@ Module Mechanic
         With MechanicMenu
             For Each apt As ApartmentClass In apartments
                 If apt.Owner = GetPlayer() AndAlso Not apt.Vehicles.Count = 0 Then
-                    Dim item As New UIMenuItem(Game.GetGXTEntry(apt.Name)) With {.Tag = apt, .Enabled = Not apt.Vehicles.Count = 0}
+                    Dim item As New UIMenuItem(GetGXTEntry(apt.Name)) With {.Tag = apt, .Enabled = Not apt.Vehicles.Count = 0}
                     .AddItem(item)
                 End If
             Next
@@ -110,12 +110,12 @@ Module Mechanic
 
         With MechanicAptMenu
             For Each veh As VehicleClass In apt.Vehicles
-                Dim vehic = outVehicleList.Find(Function(x) x.GetInt(vehUidDecor) = veh.UniqueID AndAlso x.GetInt(vehIdDecor) = veh.ApartmentID)
+                Dim vehic = outVehicleList.Find(Function(x) x.GetDecorInt(vehUidDecor) = veh.UniqueID AndAlso x.GetDecorInt(vehIdDecor) = veh.ApartmentID)
                 Dim temp As New VehDeliveryMenuItem(veh, IsGarageVehicleAlreadyExistInWorldMap(apt.ID, veh.UniqueID))
-                Dim item As New UIMenuItem($"{veh.Make} {veh.Name} ({veh.PlateNumber})", Game.GetGXTEntry("MPCT_PERVEHC")) With {.Tag = temp}
+                Dim item As New UIMenuItem($"{veh.Make} {veh.Name} ({veh.PlateNumber})", GetGXTEntry("MPCT_PERVEHC")) With {.Tag = temp}
                 If vehic <> Nothing AndAlso vehic.IsDead Then
-                    Dim text As String = Game.GetGXTEntry("MPCT_PVNAMEDES1").Replace("~a~", $"{veh.Make} {veh.Name} ({veh.PlateNumber})")
-                    item = New UIMenuItem(text, Game.GetGXTEntry("MPCT_PERVEHC")) With {.Tag = temp, .Enabled = False}
+                    Dim text As String = GetGXTEntry("MPCT_PVNAMEDES1").Replace("~a~", $"{veh.Make} {veh.Name} ({veh.PlateNumber})")
+                    item = New UIMenuItem(text, GetGXTEntry("MPCT_PERVEHC")) With {.Tag = temp, .Enabled = False}
                 End If
                 .AddItem(item)
                 MechanicMenu.BindMenuToItem(MechanicAptMenu, item)
@@ -169,19 +169,19 @@ Module Mechanic
                 Dim newVeh As Vehicle = CreateGarageVehicle(veh, nearestParkingSpot.ToQuaternion, veh.ApartmentID)
                 With newVeh
                     .AddBlip()
-                    .CurrentBlip.Sprite = newVeh.Model.GetProperBlipSprite
+                    .AttachedBlip.Sprite = newVeh.Model.GetProperBlipSprite
                     Select Case GetPlayer()
                         Case eOwner.Michael
-                            .CurrentBlip.Color = BlipColor.Michael
+                            .AttachedBlip.Color = BlipColor.Michael
                         Case eOwner.Franklin
-                            .CurrentBlip.Color = BlipColor.Franklin
+                            .AttachedBlip.Color = BlipColor.Franklin
                         Case eOwner.Trevor
-                            .CurrentBlip.Color = BlipColor.Trevor
+                            .AttachedBlip.Color = BlipColor.Trevor
                         Case eOwner.Others
-                            .CurrentBlip.Color = BlipColor.Yellow
+                            .AttachedBlip.Color = BlipColor.Yellow
                     End Select
-                    .CurrentBlip.IsShortRange = True
-                    .CurrentBlip.Name = $"{newVeh.Make} {newVeh.FriendlyName}"
+                    .AttachedBlip.IsShortRange = True
+                    .AttachedBlip.Name = $"{newVeh.Make} {newVeh.LocalizedName}"
                     .PlaceOnGround()
                 End With
                 outVehicleList.Add(newVeh)
@@ -204,7 +204,7 @@ Module Mechanic
         With InsuranceMenu
             For Each veh As Vehicle In outVehicleList
                 If veh.Owner = GetPlayer() AndAlso veh.IsDead Then
-                    Dim item As New UIMenuItem($"{veh.Make} {veh.FriendlyName}", Game.GetGXTEntry("MPCT_INSD"))
+                    Dim item As New UIMenuItem($"{veh.Make} {veh.LocalizedName}", GetGXTEntry("MPCT_INSD"))
                     With item
                         .SetRightLabel("$500")
                         .Tag = veh
@@ -228,7 +228,7 @@ Module Mechanic
 
         Player.Money = (PM - 500)
         If veh.IsCurrentVehicleExistInList Then
-            veh.CurrentBlip.Remove()
+            veh.AttachedBlip.Remove()
             outVehicleList.Remove(veh)
             veh.Delete()
         End If
@@ -244,7 +244,7 @@ Module Mechanic
             Dim vacant = (From a In apartments Where a.Owner = eOwner.Nobody)
 
             For Each apt As ApartmentClass In vacant
-                Dim item As New UIMenuItem(Game.GetGXTEntry(apt.Name), Game.GetGXTEntry(apt.Description).Truncate)
+                Dim item As New UIMenuItem(GetGXTEntry(apt.Name), GetGXTEntry(apt.Description).Truncate)
                 With item
                     .Tag = apt
                     .SetRightLabel($"${apt.Price.ToString("0,0")}")
@@ -263,7 +263,7 @@ Module Mechanic
             Dim playerApts = (From a In apartments Where a.Owner = GetPlayer())
 
             For Each apt As ApartmentClass In playerApts
-                Dim item As New UIMenuItem(Game.GetGXTEntry(apt.Name), Game.GetGXTEntry("MP_REP_PROP_3"))
+                Dim item As New UIMenuItem(GetGXTEntry(apt.Name), GetGXTEntry("MP_REP_PROP_3"))
                 With item
                     .Tag = apt
                     .SetRightLabel($"${(apt.Price - (apt.Price * 0.005)).ToString("0,0")}")
@@ -313,7 +313,7 @@ Module Mechanic
                         PlayPropertyPurchase(apt.Name)
                     End With
                 Else
-                    UI.ShowSubtitle(Game.GetGXTEntry("MP_REP_PROP_4"))
+                    ShowSubtitle(GetGXTEntry("MP_REP_PROP_4"))
                 End If
             Case Else
                 apt.UpdateApartmentOwner

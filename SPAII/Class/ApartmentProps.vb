@@ -21,9 +21,9 @@ Module ApartmentProps
         IBScaleform.CallFunction("CLEAR_ALL")
         'IBScaleform.CallFunction("TOGGLE_MOUSE_BUTTONS", 0)
         IBScaleform.CallFunction("CREATE_CONTAINER")
-        IBScaleform.CallFunction("SET_DATA_SLOT", 0, GetControlInstructionalButton(Control.ScriptLeftAxisX), Game.GetGXTEntry("HUD_INPUT75"))
-        IBScaleform.CallFunction("SET_DATA_SLOT", 1, GetControlInstructionalButton(Control.ScriptRUp), Game.GetGXTEntry("HUD_INPUT69"))
-        IBScaleform.CallFunction("SET_DATA_SLOT", 2, GetControlInstructionalButton(Control.Context), Game.GetGXTEntry("HUD_INPUT82"))
+        IBScaleform.CallFunction("SET_DATA_SLOT", 0, GetControlInstructionalButton(Control.ScriptLeftAxisX), GetGXTEntry("HUD_INPUT75"))
+        IBScaleform.CallFunction("SET_DATA_SLOT", 1, GetControlInstructionalButton(Control.ScriptRUp), GetGXTEntry("HUD_INPUT69"))
+        IBScaleform.CallFunction("SET_DATA_SLOT", 2, GetControlInstructionalButton(Control.Context), GetGXTEntry("HUD_INPUT82"))
         IBScaleform.CallFunction("DRAW_INSTRUCTIONAL_BUTTONS", -1)
         IBScaleform.Render2D()
     End Sub
@@ -64,7 +64,7 @@ Module ApartmentProps
         If ClosestProp.IsPropTelly Then
             If ClosestProp.Position.DistanceToSquared(Game.Player.Character.Position) <= 4.0F Then
                 If Not TVOn Then
-                    UI.ShowHelpMessage(Game.GetGXTEntry("MPTV_GRGE"))
+                    ShowHelpMessage(GetGXTEntry("MPTV_GRGE"))
                     If Game.IsControlJustPressed(0, Control.Context) Then
                         rendertargetid = ClosestProp.TurnOnTV("tvscreen", TVChannel, TVSound)
                         ex_rendertargetid = ClosestProp.TurnOnTV("ex_tvscreen", TVChannel, TVSound)
@@ -72,7 +72,7 @@ Module ApartmentProps
                         Script.Yield()
                     End If
                 Else
-                    If Not TIBOn Then UI.ShowHelpMessage(Game.GetGXTEntry("TV_HLP5"))
+                    If Not TIBOn Then ShowHelpMessage(GetGXTEntry("TV_HLP5"))
                     If Game.IsControlJustPressed(0, Control.Context) Then
                         TurnOffTV("tvscreen")
                         TurnOffTV("ex_tvscreen")
@@ -150,8 +150,8 @@ Module ApartmentProps
         IBScaleform.CallFunction("CLEAR_ALL")
         'IBScaleform.CallFunction("TOGGLE_MOUSE_BUTTONS", 0)
         IBScaleform.CallFunction("CREATE_CONTAINER")
-        IBScaleform.CallFunction("SET_DATA_SLOT", 0, GetControlInstructionalButton(Control.ScriptRUp), $"{Game.GetGXTEntry("HUD_INPUT80")} ({Game.GetGXTEntry(NFunc.Call(Of String)(Hash.GET_RADIO_STATION_NAME, RadioChannel))})") 'Select Station
-        IBScaleform.CallFunction("SET_DATA_SLOT", 1, GetControlInstructionalButton(Control.Context), Game.GetGXTEntry("HUD_INPUT82")) 'Turn Off
+        IBScaleform.CallFunction("SET_DATA_SLOT", 0, GetControlInstructionalButton(Control.ScriptRUp), $"{GetGXTEntry("HUD_INPUT80")} ({GetGXTEntry(NFunc.Call(Of String)(Hash.GET_RADIO_STATION_NAME, RadioChannel))})") 'Select Station
+        IBScaleform.CallFunction("SET_DATA_SLOT", 1, GetControlInstructionalButton(Control.Context), GetGXTEntry("HUD_INPUT82")) 'Turn Off
         IBScaleform.CallFunction("DRAW_INSTRUCTIONAL_BUTTONS", -1)
         IBScaleform.Render2D()
     End Sub
@@ -178,7 +178,7 @@ Module ApartmentProps
 
             If ClosestProp.Position.DistanceToSquared(PP.Position) <= 2.0F Then
                 If Not RadioOn Then
-                    UI.ShowHelpMessage(Game.GetGXTEntry("MPRD_CTXT"))
+                    ShowHelpMessage(GetGXTEntry("MPRD_CTXT"))
                     If Game.IsControlJustPressed(0, Control.Context) Then
                         TurnOnRadio(ClosestProp)
                         UpdateRadio(RadioChannel)
@@ -219,7 +219,7 @@ Module ApartmentProps
         If ClosestProp.IsPropBong Then
             If ClosestProp.Position.DistanceToSquared(PP.Position) <= 2.0F Then
                 If BongTaskScriptStatus = -1 Then
-                    UI.ShowHelpMessage(Game.GetGXTEntry("SA_BONG2"))
+                    ShowHelpMessage(GetGXTEntry("SA_BONG2"))
                     If Game.IsControlJustPressed(0, Control.Context) Then
                         BongProp = ClosestProp
                         BongMemory = New PropMemory(BongProp)

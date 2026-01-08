@@ -35,7 +35,7 @@ Module DebugHelper
             .MouseEdgeEnabled = False
             MenuPool.Add(DebugMenu)
             For Each apt As ApartmentClass In apartments
-                Dim item As New UIMenuItem(Game.GetGXTEntry(apt.Name)) With {.Tag = apt}
+                Dim item As New UIMenuItem(GetGXTEntry(apt.Name)) With {.Tag = apt}
                 .AddItem(item)
             Next
             .AddItem(New UIMenuItem("Clear Selection"))

@@ -85,7 +85,7 @@ Module Helper
 
     <Extension>
     Public Function Make(vehicle As Vehicle) As String
-        Return Game.GetGXTEntry(NFunc.Call(Of String)(_GET_MAKE_NAME_FROM_VEHICLE_MODEL, vehicle.Model.Hash))
+        Return GetGXTEntry(NFunc.Call(Of String)(_GET_MAKE_NAME_FROM_VEHICLE_MODEL, vehicle.Model.Hash))
     End Function
 
     <Extension>
@@ -165,7 +165,7 @@ Module Helper
 
     Public Sub PlayPropertyPurchase(aptName As String)
         NFunc.Call(Hash.PLAY_SOUND_FRONTEND, -1, "PROPERTY_PURCHASE", "HUD_AWARDS", False)
-        BigMessageThread.MessageInstance.ShowWeaponPurchasedMessage("~y~" & Game.GetGXTEntry("PROPR_PURCHASED"), "~w~" & Game.GetGXTEntry(aptName), Nothing)
+        BigMessageThread.MessageInstance.ShowWeaponPurchasedMessage("~y~" & GetGXTEntry("PROPR_PURCHASED"), "~w~" & GetGXTEntry(aptName), Nothing)
     End Sub
 
     <Extension>
@@ -291,10 +291,10 @@ Module Helper
                 .ToggleExtra(15, vehClass.Extra15)
                 .RoofState = vehClass.RoofState
                 .DirtLevel = 0F
-                If IsNitroModInstalled() Then .SetInt(nitroModDecor, vehClass.HasNitro)
+                If IsNitroModInstalled() Then .SetDecorInt(nitroModDecor, vehClass.HasNitro)
                 .IsPersistent = True
-                .SetInt(vehIdDecor, aptID)
-                .SetInt(vehUidDecor, vehClass.UniqueID)
+                .SetDecorInt(vehIdDecor, aptID)
+                .SetDecorInt(vehUidDecor, vehClass.UniqueID)
             End With
         End If
         model.MarkAsNoLongerNeeded()
@@ -363,7 +363,7 @@ Module Helper
     End Function
 
     Public Function IsGarageVehicleAlreadyExistInWorldMap(aid As Integer, uid As Integer) As Boolean
-        Return outVehicleList.Where(Function(x) x.GetInt(vehIdDecor) = aid AndAlso x.GetInt(vehUidDecor) = uid).Count >= 1
+        Return outVehicleList.Where(Function(x) x.GetDecorInt(vehIdDecor) = aid AndAlso x.GetDecorInt(vehUidDecor) = uid).Count >= 1
     End Function
 
     <Extension>
@@ -460,10 +460,10 @@ Module Helper
             .ToggleExtra(15, source.IsExtraOn(15))
             .RoofState = source.RoofState
             .DirtLevel = source.DirtLevel
-            If IsNitroModInstalled() Then .SetInt(nitroModDecor, source.GetInt(nitroModDecor))
+            If IsNitroModInstalled() Then .SetDecorInt(nitroModDecor, source.GetDecorInt(nitroModDecor))
             .IsPersistent = True
-            .SetInt(vehIdDecor, source.GetInt(vehIdDecor))
-            .SetInt(vehUidDecor, source.GetInt(vehUidDecor))
+            .SetDecorInt(vehIdDecor, source.GetDecorInt(vehIdDecor))
+            .SetDecorInt(vehUidDecor, source.GetDecorInt(vehUidDecor))
         End With
         If cloneDamage Then NFunc.Call(COPY_VEHICLE_DAMAGES, source, newVeh)
         Return newVeh
@@ -476,7 +476,7 @@ Module Helper
 
     <Extension>
     Public Function IsPersonalVehicle(veh As Vehicle) As Boolean
-        Return Not veh.GetInt(vehUidDecor) = 0
+        Return Not veh.GetDecorInt(vehUidDecor) = 0
     End Function
 
     Public Sub RequestAdditionalText(gxt2Lib As String, gxt As String)
@@ -484,7 +484,7 @@ Module Helper
             NFunc.Call(Hash.CLEAR_ADDITIONAL_TEXT, 10, True)
             NFunc.Call(Hash.REQUEST_ADDITIONAL_TEXT, gxt2Lib, 10)
         End If
-        If Game.GetGXTEntry(gxt) = "NULL" Then RequestAdditionalText(gxt2Lib, gxt)
+        If GetGXTEntry(gxt) = "NULL" Then RequestAdditionalText(gxt2Lib, gxt)
     End Sub
 
     Public Function GetAvailableIndex(vcList As List(Of VehicleClass), garageType As eGarageType) As Integer
@@ -963,12 +963,12 @@ Module Helper
 
     <Extension>
     Public Function GetClothes(ped As Ped, com As ePedVariation) As CS
-        Return New CS(CInt(com), NFunc.Call(Of Integer)(Hash.GET_PED_DRAWABLE_VARIATION, ped, com), NFunc.Call(Of Integer)(Hash.GET_PED_TEXTURE_VARIATION, ped, com), NFunc.Call(Of Integer)(Hash.GET_PED_PALETTE_VARIATION, ped, com))
+        Return New CS(CInt(com), NFunc.Call(Of Integer)(Hash.GET_PED_DRAWABLE_VARIATION, ped, CInt(com)), NFunc.Call(Of Integer)(Hash.GET_PED_TEXTURE_VARIATION, ped, CInt(com)), NFunc.Call(Of Integer)(Hash.GET_PED_PALETTE_VARIATION, ped, CInt(com)))
     End Function
 
     <Extension>
     Public Function GetProps(ped As Ped, com As ePropVariation) As CS
-        Return New CS(CInt(com), NFunc.Call(Of Integer)(Hash.GET_PED_PROP_INDEX, ped, com), NFunc.Call(Of Integer)(Hash.GET_PED_PROP_TEXTURE_INDEX, ped, com), 0)
+        Return New CS(CInt(com), NFunc.Call(Of Integer)(Hash.GET_PED_PROP_INDEX, ped, CInt(com)), NFunc.Call(Of Integer)(Hash.GET_PED_PROP_TEXTURE_INDEX, ped, CInt(com)), 0)
     End Function
 
     <Extension>
@@ -994,7 +994,7 @@ Module Helper
     End Sub
 
     Public Function GetControlInstructionalButton(control As Control) As String
-        Return NFunc.Call(Of String)(GET_CONTROL_INSTRUCTIONAL_BUTTON, 2, control, True)
+        Return NFunc.Call(Of String)(GET_CONTROL_INSTRUCTIONAL_BUTTON, 2, CInt(control), True)
     End Function
 
     <Extension>
@@ -1069,8 +1069,8 @@ Module Helper
     Public Sub DrawMPCarStats(sf As Scaleform, veh As Vehicle, Optional scale As Vector3 = Nothing)
         If scale = Nothing Then scale = New Vector3(6.0F, 3.5F, 1.0F)
         If veh.IsOnScreen AndAlso veh.Position.DistanceToSquared(PP.Position) <= 100.0F Then
-            sf.CallFunction("SET_VEHICLE_INFOR_AND_STATS", veh.FriendlyName, Game.GetGXTEntry("MP_PROP_CAR0"), "MPCarHUD", veh.Make, Game.GetGXTEntry("FMMC_VEHST_0"), Game.GetGXTEntry("FMMC_VEHST_1"),
-                                   Game.GetGXTEntry("FMMC_VEHST_2"), Game.GetGXTEntry("FMMC_VEHST_3"), veh.TopSpeed * 100.0F, veh.MaxBraking * 100.0F, veh.Acceleration * 100.0F, veh.MaxTraction * 100.0F)
+            sf.CallFunction("SET_VEHICLE_INFOR_AND_STATS", veh.LocalizedName, GetGXTEntry("MP_PROP_CAR0"), "MPCarHUD", veh.Make, GetGXTEntry("FMMC_VEHST_0"), GetGXTEntry("FMMC_VEHST_1"),
+                                   GetGXTEntry("FMMC_VEHST_2"), GetGXTEntry("FMMC_VEHST_3"), veh.TopSpeed * 100.0F, veh.MaxBraking * 100.0F, veh.Acceleration * 100.0F, veh.MaxTraction * 100.0F)
             sf.Render3D(New Vector3(veh.Position.X, veh.Position.Y, veh.Position.Z + 3.0F), GameplayCamera.Rotation, scale)
         End If
     End Sub
@@ -1121,8 +1121,8 @@ Module Helper
 
     <Extension>
     Public Function Owner(veh As Vehicle) As eOwner
-        If veh.GetInt(vehUidDecor) <> 0 Then
-            Select Case veh.CurrentBlip.Color
+        If veh.GetDecorInt(vehUidDecor) <> 0 Then
+            Select Case veh.AttachedBlip.Color
                 Case BlipColor.Franklin
                     Return eOwner.Franklin
                 Case BlipColor.Michael
@@ -1171,68 +1171,83 @@ Module Helper
 
     ''' <summary>
     ''' Gets the appropriate global value offset for the current game version.
-    ''' Enhanced Edition (v1.0.3095.0+) uses different offsets than Legacy.
+    ''' Uses Game.FileVersion (SHVDN3 compatible) to determine version.
     ''' </summary>
     Public Function GetGlobalValue() As GlobalValue
-        ' Check if running Enhanced Edition first
-        If PathConfig.IsEnhanced Then
-            Return GetEnhancedGlobalValue()
-        End If
+        Try
+            ' Use Game.FileVersion which returns System.Version in SHVDN3
+            Dim fileVersion As System.Version = Game.FileVersion
+            Dim build As Integer = fileVersion.Build
 
-        ' Legacy version handling
-        Select Case Game.Version
-            Case GameVersion.VER_1_0_757_4_NOSTEAM
-                Return GlobalValue.b1_0_757_4
-            Case GameVersion.VER_1_0_791_2_NOSTEAM, GameVersion.VER_1_0_791_2_STEAM
-                Return GlobalValue.b1_0_791_2
-            Case GameVersion.VER_1_0_877_1_NOSTEAM, GameVersion.VER_1_0_877_1_STEAM
-                Return GlobalValue.b1_0_877_1
-            Case GameVersion.VER_1_0_944_2_NOSTEAM, GameVersion.VER_1_0_944_2_STEAM
-                Return GlobalValue.b1_0_944_2
-            Case GameVersion.VER_1_0_1032_1_NOSTEAM, GameVersion.VER_1_0_1032_1_STEAM
-                Return GlobalValue.b1_0_1032_1
-            Case GameVersion.VER_1_0_1103_2_NOSTEAM, GameVersion.VER_1_0_1103_2_STEAM
-                Return GlobalValue.b1_0_1103_2
-            Case GameVersion.VER_1_0_1180_2_NOSTEAM, GameVersion.VER_1_0_1180_2_STEAM
-                Return GlobalValue.b1_0_1180_2
-            Case GameVersion.VER_1_0_1365_1_NOSTEAM, GameVersion.VER_1_0_1365_1_STEAM
-                Return GlobalValue.b1_0_1365_1
-            Case GameVersion.VER_1_0_1493_1_NOSTEAM, GameVersion.VER_1_0_1493_1_STEAM
-                Return GlobalValue.b1_0_1493_1
-            Case GameVersion.VER_1_0_1604_0_NOSTEAM, GameVersion.VER_1_0_1604_0_STEAM, GameVersion.VER_1_0_1604_1_NOSTEAM, GameVersion.VER_1_0_1604_1_STEAM
-                Return GlobalValue.b1_0_1604_1
-            Case GameVersion.VER_1_0_1737_0_NOSTEAM, GameVersion.VER_1_0_1737_0_STEAM, GameVersion.VER_1_0_1737_6_NOSTEAM, GameVersion.VER_1_0_1737_6_STEAM
-                Return GlobalValue.b1_0_1737_0
-            Case GameVersion.VER_1_0_1868_0_NOSTEAM, GameVersion.VER_1_0_1868_0_STEAM, 57, 58, 59 'GameVersion.VER_1_0_1868_1_STEAM, GameVersion.VER_1_0_1868_1_NOSTEAM, GameVersion.VER_1_0_1868_4_EGS
-                Return GlobalValue.b1_0_1868_0
-            Case 60, 61, 62, 63 'GameVersion.VER_1_0_2060_0_STEAM, GameVersion.VER_1_0_2060_0_NOSTEAM, GameVersion.VER_1_0_2060_1_STEAM, GameVersion.VER_1_0_2060_1_NOSTEAM
-                Return GlobalValue.b1_0_2060_0
-            Case 64 'VER_1_0_2189_0
-                Return GlobalValue.b1_0_2189_0
-            Case Else
-                Return GlobalValue.b1_0_2060_0
-        End Select
+            ' Enhanced Edition builds start at 3095+
+            If build >= 3095 Then
+                Return GetEnhancedGlobalValue(build)
+            End If
+
+            ' Legacy version handling based on build number
+            Select Case True
+                Case build >= 2944
+                    Return GlobalValue.b1_0_2944_0
+                Case build >= 2802
+                    Return GlobalValue.b1_0_2802_0
+                Case build >= 2699
+                    Return GlobalValue.b1_0_2699_0
+                Case build >= 2612
+                    Return GlobalValue.b1_0_2612_0
+                Case build >= 2545
+                    Return GlobalValue.b1_0_2545_0
+                Case build >= 2372
+                    Return GlobalValue.b1_0_2372_0
+                Case build >= 2189
+                    Return GlobalValue.b1_0_2189_0
+                Case build >= 2060
+                    Return GlobalValue.b1_0_2060_0
+                Case build >= 1868
+                    Return GlobalValue.b1_0_1868_0
+                Case build >= 1737
+                    Return GlobalValue.b1_0_1737_0
+                Case build >= 1604
+                    Return GlobalValue.b1_0_1604_1
+                Case build >= 1493
+                    Return GlobalValue.b1_0_1493_1
+                Case build >= 1365
+                    Return GlobalValue.b1_0_1365_1
+                Case build >= 1180
+                    Return GlobalValue.b1_0_1180_2
+                Case build >= 1103
+                    Return GlobalValue.b1_0_1103_2
+                Case build >= 1032
+                    Return GlobalValue.b1_0_1032_1
+                Case build >= 944
+                    Return GlobalValue.b1_0_944_2
+                Case build >= 877
+                    Return GlobalValue.b1_0_877_1
+                Case build >= 791
+                    Return GlobalValue.b1_0_791_2
+                Case build >= 757
+                    Return GlobalValue.b1_0_757_4
+                Case Else
+                    ' Default to a recent Legacy version
+                    Return GlobalValue.b1_0_2060_0
+            End Select
+        Catch
+            ' If we can't determine version, use default
+            Return GlobalValue.b1_0_Enhanced_Default
+        End Try
     End Function
 
     ''' <summary>
-    ''' Gets the global value for Enhanced Edition.
-    ''' Enhanced builds start at v1.0.3095.0 and have different offsets.
+    ''' Gets the global value for Enhanced Edition builds.
     ''' </summary>
-    Private Function GetEnhancedGlobalValue() As GlobalValue
-        ' For Enhanced Edition, SHVDNE reports version numbers differently
-        ' Version enum values 65+ correspond to Enhanced builds
-        Dim version As Integer = CInt(Game.Version)
-
-        Select Case version
-            Case 65 ' v1_0_3095_0 - First Enhanced build
-                Return GlobalValue.b1_0_3095_0
-            Case 66 ' v1_0_3258_0
-                Return GlobalValue.b1_0_3258_0
-            Case 67 ' v1_0_3323_0
+    Private Function GetEnhancedGlobalValue(build As Integer) As GlobalValue
+        Select Case True
+            Case build >= 3323
                 Return GlobalValue.b1_0_3323_0
+            Case build >= 3258
+                Return GlobalValue.b1_0_3258_0
+            Case build >= 3095
+                Return GlobalValue.b1_0_3095_0
             Case Else
-                ' For unknown Enhanced versions, use the latest known value
-                ' This may need updating as new versions release
                 Return GlobalValue.b1_0_Enhanced_Default
         End Select
     End Function

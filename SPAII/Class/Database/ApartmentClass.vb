@@ -48,11 +48,11 @@ Public Class ApartmentClass
     End Function
 
     Public Function FriendlyName() As String
-        Return Game.GetGXTEntry(Name)
+        Return GetGXTEntry(Name)
     End Function
 
     Public Function FriendlyDescription() As String
-        Return Game.GetGXTEntry(Description)
+        Return GetGXTEntry(Description)
     End Function
 
     Public Function InteriorPos() As Vector3
@@ -91,7 +91,7 @@ Public Class ApartmentClass
     Public Function VehiclesContain(veh As Vehicle) As Boolean
         Dim got As Boolean = False
         For Each vc In Vehicles()
-            If veh.GetInt(vehIdDecor) = vc.ApartmentID AndAlso veh.GetInt(vehUidDecor) = vc.UniqueID Then got = True
+            If veh.GetDecorInt(vehIdDecor) = vc.ApartmentID AndAlso veh.GetDecorInt(vehUidDecor) = vc.UniqueID Then got = True
         Next
         Return got
     End Function
@@ -113,14 +113,14 @@ Public Class ApartmentClass
     End Function
 
     Public Sub Load()
-        Dim aptStyle As New UIMenuItem(Game.GetGXTEntry("PM_APT_TVARIANT")) With {.Tag = "Style"}
-        AptMenu = New UIMenu("", Game.GetGXTEntry("MP_PROP_GEN2A"), New Point(0, -107))
+        Dim aptStyle As New UIMenuItem(GetGXTEntry("PM_APT_TVARIANT")) With {.Tag = "Style"}
+        AptMenu = New UIMenu("", GetGXTEntry("MP_PROP_GEN2A"), New Point(0, -107))
         AptMenu.SetBannerType(MenuBanner)
         AptMenu.MouseEdgeEnabled = False
         MenuPool.Add(AptMenu)
         With AptMenu
-            .AddItem(New UIMenuItem(Game.GetGXTEntry("MP_PROP_MENU2D")) With {.Tag = "Exit"}) 'Exit Apartment
-            .AddItem(New UIMenuItem(Game.GetGXTEntry("MP_PROP_GOGAR")) With {.Tag = "Garage"}) 'Enter Garage
+            .AddItem(New UIMenuItem(GetGXTEntry("MP_PROP_MENU2D")) With {.Tag = "Exit"}) 'Exit Apartment
+            .AddItem(New UIMenuItem(GetGXTEntry("MP_PROP_GOGAR")) With {.Tag = "Garage"}) 'Enter Garage
             If ApartmentType = eApartmentType.IPL Then .AddItem(aptStyle) 'Apartment Style
             .RefreshIndex()
         End With
@@ -134,54 +134,54 @@ Public Class ApartmentClass
         End Try
 
         If ApartmentType = eApartmentType.IPL Then
-            StyleMenu = New UIMenu("", Game.GetGXTEntry("PM_APT_VARCAPS"), New Point(0, -107))
+            StyleMenu = New UIMenu("", GetGXTEntry("PM_APT_VARCAPS"), New Point(0, -107))
             StyleMenu.SetBannerType(MenuBanner)
             StyleMenu.MouseEdgeEnabled = False
             MenuPool.Add(StyleMenu)
             With StyleMenu
-                Dim modern As New UIMenuItem(Game.GetGXTEntry("PM_APT_VAR_0"))
+                Dim modern As New UIMenuItem(GetGXTEntry("PM_APT_VAR_0"))
                 With modern
                     .Tag = "Modern"
                     .SetRightBadge(If(IPL.Contains("01"), UIMenuItem.BadgeStyle.Tick, UIMenuItem.BadgeStyle.None))
                 End With
                 .AddItem(modern)
-                Dim moody As New UIMenuItem(Game.GetGXTEntry("PM_APT_VAR_1"))
+                Dim moody As New UIMenuItem(GetGXTEntry("PM_APT_VAR_1"))
                 With moody
                     .Tag = "Moody"
                     .SetRightBadge(If(IPL.Contains("02"), UIMenuItem.BadgeStyle.Tick, UIMenuItem.BadgeStyle.None))
                 End With
                 .AddItem(moody)
-                Dim vibrant As New UIMenuItem(Game.GetGXTEntry("PM_APT_VAR_2"))
+                Dim vibrant As New UIMenuItem(GetGXTEntry("PM_APT_VAR_2"))
                 With vibrant
                     .Tag = "Vibrant"
                     .SetRightBadge(If(IPL.Contains("03"), UIMenuItem.BadgeStyle.Tick, UIMenuItem.BadgeStyle.None))
                 End With
                 .AddItem(vibrant)
-                Dim sharp As New UIMenuItem(Game.GetGXTEntry("PM_APT_VAR_3"))
+                Dim sharp As New UIMenuItem(GetGXTEntry("PM_APT_VAR_3"))
                 With sharp
                     .Tag = "Sharp"
                     .SetRightBadge(If(IPL.Contains("04"), UIMenuItem.BadgeStyle.Tick, UIMenuItem.BadgeStyle.None))
                 End With
                 .AddItem(sharp)
-                Dim monochrome As New UIMenuItem(Game.GetGXTEntry("PM_APT_VAR_4"))
+                Dim monochrome As New UIMenuItem(GetGXTEntry("PM_APT_VAR_4"))
                 With monochrome
                     .Tag = "Monochrome"
                     .SetRightBadge(If(IPL.Contains("05"), UIMenuItem.BadgeStyle.Tick, UIMenuItem.BadgeStyle.None))
                 End With
                 .AddItem(monochrome)
-                Dim seductive As New UIMenuItem(Game.GetGXTEntry("PM_APT_VAR_5"))
+                Dim seductive As New UIMenuItem(GetGXTEntry("PM_APT_VAR_5"))
                 With seductive
                     .Tag = "Seductive"
                     .SetRightBadge(If(IPL.Contains("06"), UIMenuItem.BadgeStyle.Tick, UIMenuItem.BadgeStyle.None))
                 End With
                 .AddItem(seductive)
-                Dim regal As New UIMenuItem(Game.GetGXTEntry("PM_APT_VAR_6"))
+                Dim regal As New UIMenuItem(GetGXTEntry("PM_APT_VAR_6"))
                 With regal
                     .Tag = "Regal"
                     .SetRightBadge(If(IPL.Contains("07"), UIMenuItem.BadgeStyle.Tick, UIMenuItem.BadgeStyle.None))
                 End With
                 .AddItem(regal)
-                Dim aqua As New UIMenuItem(Game.GetGXTEntry("PM_APT_VAR_7"))
+                Dim aqua As New UIMenuItem(GetGXTEntry("PM_APT_VAR_7"))
                 With aqua
                     .Tag = "Aqua"
                     .SetRightBadge(If(IPL.Contains("08"), UIMenuItem.BadgeStyle.Tick, UIMenuItem.BadgeStyle.None))
@@ -464,7 +464,7 @@ Public Class ApartmentClass
             World.RenderingCamera = World.CreateCamera(EnterCam.Position, EnterCam.Rotation, EnterCam.FOV)
             Game.Player.Character.Position = ApartmentDoorPos.ToVector3
             Game.Player.Character.Heading = ApartmentDoorPos.W
-            Game.Player.Character.Task.GoTo(ApartmentInPos, True, 6000)
+            Game.Player.Character.Task.GoTo(ApartmentInPos, 6000)
             Script.Wait(6000)
             Door.LockDoor()
             World.DestroyAllCameras()
@@ -480,7 +480,7 @@ Public Class ApartmentClass
             World.RenderingCamera = World.CreateCamera(ExitCam.Position, ExitCam.Rotation, ExitCam.FOV)
             Game.Player.Character.Position = ApartmentInPos
             Game.Player.Character.Heading = ApartmentDoorPos.W - 180.0F
-            Game.Player.Character.Task.GoTo(ApartmentDoorPos.ToVector3, True, 3500)
+            Game.Player.Character.Task.GoTo(ApartmentDoorPos.ToVector3, 3500)
             Script.Wait(3500)
             Door.LockDoor()
         Catch ex As Exception

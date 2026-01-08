@@ -31,7 +31,7 @@ Module TwoCarGarage
     Public MenuCam As New CameraPRH(New Vector3(179.6135F, -1008.107F, -97.29996F), New Vector3(-24.14237F, 0F, 57.91766F), 50.0F)
 
     Public Sub LoadGarageMenu()
-        MgmtMenu = New UIMenu("", Game.GetGXTEntry("MP_MAN_VEH0").ToUpper, New Point(0, -107))
+        MgmtMenu = New UIMenu("", GetGXTEntry("MP_MAN_VEH0").ToUpper, New Point(0, -107))
         With MgmtMenu
             .SetBannerType(MenuBanner)
             .MouseEdgeEnabled = False
@@ -39,7 +39,7 @@ Module TwoCarGarage
             .RefreshIndex()
         End With
 
-        MgmtOptMenu = New UIMenu("", Game.GetGXTEntry("MP_MAN_VEH0").ToUpper, New Point(0, -107))
+        MgmtOptMenu = New UIMenu("", GetGXTEntry("MP_MAN_VEH0").ToUpper, New Point(0, -107))
         With MgmtOptMenu
             .SetBannerType(MenuBanner)
             .MouseEdgeEnabled = False
@@ -47,7 +47,7 @@ Module TwoCarGarage
             .RefreshIndex()
         End With
 
-        MgmtMoveMenu = New UIMenu("", Game.GetGXTEntry("MP_MAN_VEH0").ToUpper, New Point(0, -107))
+        MgmtMoveMenu = New UIMenu("", GetGXTEntry("MP_MAN_VEH0").ToUpper, New Point(0, -107))
         With MgmtMoveMenu
             .SetBannerType(MenuBanner)
             .MouseEdgeEnabled = False
@@ -60,13 +60,13 @@ Module TwoCarGarage
         MgmtOptMenu.MenuItems.Clear()
 
         With MgmtOptMenu
-            Dim move As New UIMenuItem(Game.GetGXTEntry("MP_MAN_VEH2")) With {.Tag = "Move"}
+            Dim move As New UIMenuItem(GetGXTEntry("MP_MAN_VEH2")) With {.Tag = "Move"}
             .AddItem(move)
             MgmtMenu.BindMenuToItem(MgmtOptMenu, move)
-            Dim remove As New UIMenuItem(Game.GetGXTEntry("ITEM_REM")) With {.Tag = "Remove"}
+            Dim remove As New UIMenuItem(GetGXTEntry("ITEM_REM")) With {.Tag = "Remove"}
             .AddItem(remove)
             MgmtMenu.BindMenuToItem(MgmtOptMenu, remove)
-            Dim plate As New UIMenuItem(Game.GetGXTEntry("CMOD_MOD_PLA")) With {.Tag = "Plate"}
+            Dim plate As New UIMenuItem(GetGXTEntry("CMOD_MOD_PLA")) With {.Tag = "Plate"}
             .AddItem(plate) 'Change Plate
             MgmtMenu.BindMenuToItem(MgmtOptMenu, plate)
             .RefreshIndex()
@@ -78,10 +78,10 @@ Module TwoCarGarage
 
         With MgmtMenu
             Dim veh1 As VehicleClass = Apartment.Vehicles.Find(Function(x) x.Index = 0)
-            Dim item1 As New UIMenuItem(If(veh1 Is Nothing, Game.GetGXTEntry("MP_MAN_VEH_S"), $"{veh1.Make} {veh1.Name} ({veh1.PlateNumber})"), Game.GetGXTEntry(itemDesc)) With {.Tag = New VehClassMenuItem(0, veh1), .Enabled = If(veh1 Is Nothing, False, True)}
+            Dim item1 As New UIMenuItem(If(veh1 Is Nothing, GetGXTEntry("MP_MAN_VEH_S"), $"{veh1.Make} {veh1.Name} ({veh1.PlateNumber})"), GetGXTEntry(itemDesc)) With {.Tag = New VehClassMenuItem(0, veh1), .Enabled = If(veh1 Is Nothing, False, True)}
             .AddItem(item1)
             Dim veh2 As VehicleClass = Apartment.Vehicles.Find(Function(x) x.Index = 1)
-            Dim item2 As New UIMenuItem(If(veh2 Is Nothing, Game.GetGXTEntry("MP_MAN_VEH_S"), $"{veh2.Make} {veh2.Name} ({veh2.PlateNumber})"), Game.GetGXTEntry(itemDesc)) With {.Tag = New VehClassMenuItem(1, veh2), .Enabled = If(veh2 Is Nothing, False, True)}
+            Dim item2 As New UIMenuItem(If(veh2 Is Nothing, GetGXTEntry("MP_MAN_VEH_S"), $"{veh2.Make} {veh2.Name} ({veh2.PlateNumber})"), GetGXTEntry(itemDesc)) With {.Tag = New VehClassMenuItem(1, veh2), .Enabled = If(veh2 Is Nothing, False, True)}
             .AddItem(item2)
             .RefreshIndex()
         End With
@@ -92,11 +92,11 @@ Module TwoCarGarage
 
         With MgmtMoveMenu
             Dim veh1 As VehicleClass = Apartment.Vehicles.Find(Function(x) x.Index = 0)
-            Dim item1 As New UIMenuItem(If(veh1 Is Nothing, Game.GetGXTEntry("MP_MAN_VEH_S"), $"{veh1.Make} {veh1.Name} ({veh1.PlateNumber})"), Game.GetGXTEntry(itemDesc)) With {.Tag = New VehClassMenuItem(0, If(veh1 Is Nothing, Nothing, veh1))}
+            Dim item1 As New UIMenuItem(If(veh1 Is Nothing, GetGXTEntry("MP_MAN_VEH_S"), $"{veh1.Make} {veh1.Name} ({veh1.PlateNumber})"), GetGXTEntry(itemDesc)) With {.Tag = New VehClassMenuItem(0, If(veh1 Is Nothing, Nothing, veh1))}
             .AddItem(item1)
             MgmtOptMenu.BindMenuToItem(MgmtMoveMenu, item1)
             Dim veh2 As VehicleClass = Apartment.Vehicles.Find(Function(x) x.Index = 1)
-            Dim item2 As New UIMenuItem(If(veh2 Is Nothing, Game.GetGXTEntry("MP_MAN_VEH_S"), $"{veh2.Make} {veh2.Name} ({veh2.PlateNumber})"), Game.GetGXTEntry(itemDesc)) With {.Tag = New VehClassMenuItem(1, If(veh2 Is Nothing, Nothing, veh2))}
+            Dim item2 As New UIMenuItem(If(veh2 Is Nothing, GetGXTEntry("MP_MAN_VEH_S"), $"{veh2.Make} {veh2.Name} ({veh2.PlateNumber})"), GetGXTEntry(itemDesc)) With {.Tag = New VehClassMenuItem(1, If(veh2 Is Nothing, Nothing, veh2))}
             .AddItem(item2)
             MgmtOptMenu.BindMenuToItem(MgmtMoveMenu, item2)
             .RefreshIndex()
@@ -135,7 +135,7 @@ Module TwoCarGarage
         Try
             LoadVehicles()
 
-            Dim target As Vehicle = Vehicles.Find(Function(x) x.GetInt(vehUidDecor) = uid)
+            Dim target As Vehicle = Vehicles.Find(Function(x) x.GetDecorInt(vehUidDecor) = uid)
             If target.Exists Then
                 Game.Player.Character.Position = target.Position
                 target.SetPlayerIntoVehicle
@@ -169,7 +169,7 @@ Module TwoCarGarage
             'Vehicle Management
             If MenuDistance() <= 2.0F Then
                 If Not MenuPool.IsAnyMenuOpen Then
-                    UI.ShowHelpMessage(Game.GetGXTEntry("MP_MAN_VEH"))
+                    ShowHelpMessage(GetGXTEntry("MP_MAN_VEH"))
                     If Game.IsControlJustReleased(0, Control.Context) Then
                         RefreshMgmtMenu()
                         MgmtMenu.Visible = True
@@ -185,7 +185,7 @@ Module TwoCarGarage
             'Enter Apartment from Garage Elevator
             If GarageElevatorDistance() <= 2.0F Then
                 If Not Apartment.ApartmentType = eApartmentType.Other Then
-                    UI.ShowHelpMessage(Game.GetGXTEntry("MP_PROP_BUZZ1"))
+                    ShowHelpMessage(GetGXTEntry("MP_PROP_BUZZ1"))
                     If Game.IsControlJustReleased(0, Control.Context) Then
                         HideHud = True
                         Apartment.Building.PlayEnterElevatorCutScene(5000)
@@ -233,7 +233,7 @@ Module TwoCarGarage
                     FadeScreen(1)
 
                     Audio.PlaySoundAt(PP, "GARAGE_DOOR_SCRIPTED_CLOSE")
-                    Dim curVeh As Vehicle = Vehicles.Find(Function(x) x.GetInt(vehUidDecor) = Game.Player.Character.CurrentVehicle.GetInt(vehUidDecor) AndAlso x.GetInt(vehIdDecor) = Apartment.ID)
+                    Dim curVeh As Vehicle = Vehicles.Find(Function(x) x.GetDecorInt(vehUidDecor) = Game.Player.Character.CurrentVehicle.GetDecorInt(vehUidDecor) AndAlso x.GetDecorInt(vehIdDecor) = Apartment.ID)
                     Dim bd = Apartment.Building
 
                     Dim newVeh As Vehicle
@@ -246,19 +246,19 @@ Module TwoCarGarage
                     End If
                     With newVeh
                         .AddBlip()
-                        .CurrentBlip.Sprite = newVeh.Model.GetProperBlipSprite
+                        .AttachedBlip.Sprite = newVeh.Model.GetProperBlipSprite
                         Select Case GetPlayer()
                             Case eOwner.Michael
-                                .CurrentBlip.Color = BlipColor.Michael
+                                .AttachedBlip.Color = BlipColor.Michael
                             Case eOwner.Franklin
-                                .CurrentBlip.Color = BlipColor.Franklin
+                                .AttachedBlip.Color = BlipColor.Franklin
                             Case eOwner.Trevor
-                                .CurrentBlip.Color = BlipColor.Trevor
+                                .AttachedBlip.Color = BlipColor.Trevor
                             Case eOwner.Others
-                                .CurrentBlip.Color = BlipColor.Yellow
+                                .AttachedBlip.Color = BlipColor.Yellow
                         End Select
-                        .CurrentBlip.IsShortRange = True
-                        .CurrentBlip.Name = $"{newVeh.Make} {newVeh.FriendlyName}"
+                        .AttachedBlip.IsShortRange = True
+                        .AttachedBlip.Name = $"{newVeh.Make} {newVeh.LocalizedName}"
                         .PlaceOnGround()
                     End With
                     outVehicleList.Add(newVeh)

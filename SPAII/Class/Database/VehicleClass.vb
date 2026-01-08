@@ -193,7 +193,7 @@ Public Class VehicleClass
         Try
             Me.Index = index
             Make = vehicle.Make
-            Name = vehicle.FriendlyName
+            Name = vehicle.LocalizedName
             Hash = vehicle.Model.Hash
             Owner = _owner
             Aerials = vehicle.GetMod(VehicleMod.Aerials)
@@ -283,7 +283,7 @@ Public Class VehicleClass
             Extra15 = vehicle.IsExtraOn(15)
             RoofState = vehicle.RoofState
             Livery1 = vehicle.Livery
-            If IsNitroModInstalled() Then HasNitro = vehicle.GetInt(nitroModDecor) Else HasNitro = 0
+            If IsNitroModInstalled() Then HasNitro = vehicle.GetDecorInt(nitroModDecor) Else HasNitro = 0
             ApartmentID = aptID
             UniqueID = uid
         Catch ex As Exception

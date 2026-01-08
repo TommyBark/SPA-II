@@ -33,44 +33,44 @@ Module Wardrobe
         Try
             RequestAdditionalText("clo_mnu", "CSHOP_TITLE1")
 
-            iOutfits = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM36")) With {.Tag = "Outfit"}
-            giSuits = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM49")) With {.Tag = "Suit"}
-            iFullSuits = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM125")) With {.Tag = "FullSuit"}
-            iSuitJackets = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM46")) With {.Tag = "SuitJacket"}
-            iSuitJacketsButtoned = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM126")) With {.Tag = "SuitJacketButtoned"}
-            iSuitPants = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM47")) With {.Tag = "SuitPant"}
-            iSuitVests = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM50")) With {.Tag = "Vest"}
-            iSuitTies = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM81")) With {.Tag = "Tie"}
-            giCasualJackets = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM79")) With {.Tag = "CasualJacket"}
-            iOpenShirts = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM72")) With {.Tag = "OpenShirt"}
+            iOutfits = New UIMenuItem(GetGXTEntry("CSHOP_ITEM36")) With {.Tag = "Outfit"}
+            giSuits = New UIMenuItem(GetGXTEntry("CSHOP_ITEM49")) With {.Tag = "Suit"}
+            iFullSuits = New UIMenuItem(GetGXTEntry("CSHOP_ITEM125")) With {.Tag = "FullSuit"}
+            iSuitJackets = New UIMenuItem(GetGXTEntry("CSHOP_ITEM46")) With {.Tag = "SuitJacket"}
+            iSuitJacketsButtoned = New UIMenuItem(GetGXTEntry("CSHOP_ITEM126")) With {.Tag = "SuitJacketButtoned"}
+            iSuitPants = New UIMenuItem(GetGXTEntry("CSHOP_ITEM47")) With {.Tag = "SuitPant"}
+            iSuitVests = New UIMenuItem(GetGXTEntry("CSHOP_ITEM50")) With {.Tag = "Vest"}
+            iSuitTies = New UIMenuItem(GetGXTEntry("CSHOP_ITEM81")) With {.Tag = "Tie"}
+            giCasualJackets = New UIMenuItem(GetGXTEntry("CSHOP_ITEM79")) With {.Tag = "CasualJacket"}
+            iOpenShirts = New UIMenuItem(GetGXTEntry("CSHOP_ITEM72")) With {.Tag = "OpenShirt"}
 
-            iCasualJackets = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM79")) With {.Tag = "CasualJacketJacket"}
-            iCasualJacketShirts = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM4")) With {.Tag = "CasualJacketShirt"}
-            iCasualJacketTShirts = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM80")) With {.Tag = "CasualJacketTShirt"}
-            iEarrings = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM74")) With {.Tag = "Earrings"}
-            iGlasses = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM42")) With {.Tag = "Glasses"}
-            giGlasses = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM42")) With {.Tag = "Glasses"}
-            iSportShades = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM70")) With {.Tag = "SportShades"}
-            iStreetShades = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM71")) With {.Tag = "StreetShades"}
-            giHats = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM40")) With {.Tag = "Hat"}
-            iHats = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM40")) With {.Tag = "HatsTrevor"}
+            iCasualJackets = New UIMenuItem(GetGXTEntry("CSHOP_ITEM79")) With {.Tag = "CasualJacketJacket"}
+            iCasualJacketShirts = New UIMenuItem(GetGXTEntry("CSHOP_ITEM4")) With {.Tag = "CasualJacketShirt"}
+            iCasualJacketTShirts = New UIMenuItem(GetGXTEntry("CSHOP_ITEM80")) With {.Tag = "CasualJacketTShirt"}
+            iEarrings = New UIMenuItem(GetGXTEntry("CSHOP_ITEM74")) With {.Tag = "Earrings"}
+            iGlasses = New UIMenuItem(GetGXTEntry("CSHOP_ITEM42")) With {.Tag = "Glasses"}
+            giGlasses = New UIMenuItem(GetGXTEntry("CSHOP_ITEM42")) With {.Tag = "Glasses"}
+            iSportShades = New UIMenuItem(GetGXTEntry("CSHOP_ITEM70")) With {.Tag = "SportShades"}
+            iStreetShades = New UIMenuItem(GetGXTEntry("CSHOP_ITEM71")) With {.Tag = "StreetShades"}
+            giHats = New UIMenuItem(GetGXTEntry("CSHOP_ITEM40")) With {.Tag = "Hat"}
+            iHats = New UIMenuItem(GetGXTEntry("CSHOP_ITEM40")) With {.Tag = "HatsTrevor"}
 
-            iCapsForward = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM127")) With {.Tag = "CapForward"}
-            iCapsBackward = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM128")) With {.Tag = "CapBackward"}
-            iHoodies = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM5")) With {.Tag = "Hoodie"}
-            iJackets = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM2")) With {.Tag = "Jacket"}
-            iPants = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM38")) With {.Tag = "Pants"}
-            iShoes = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM39")) With {.Tag = "Shoes"}
-            iShirts = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM4")) With {.Tag = "Shirt"}
-            iShorts = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM51")) With {.Tag = "Shorts"}
-            iSmartShoes = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM51")) With {.Tag = "SmartShoes"}
-            iTShirt = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM3")) With {.Tag = "TShirt"}
+            iCapsForward = New UIMenuItem(GetGXTEntry("CSHOP_ITEM127")) With {.Tag = "CapForward"}
+            iCapsBackward = New UIMenuItem(GetGXTEntry("CSHOP_ITEM128")) With {.Tag = "CapBackward"}
+            iHoodies = New UIMenuItem(GetGXTEntry("CSHOP_ITEM5")) With {.Tag = "Hoodie"}
+            iJackets = New UIMenuItem(GetGXTEntry("CSHOP_ITEM2")) With {.Tag = "Jacket"}
+            iPants = New UIMenuItem(GetGXTEntry("CSHOP_ITEM38")) With {.Tag = "Pants"}
+            iShoes = New UIMenuItem(GetGXTEntry("CSHOP_ITEM39")) With {.Tag = "Shoes"}
+            iShirts = New UIMenuItem(GetGXTEntry("CSHOP_ITEM4")) With {.Tag = "Shirt"}
+            iShorts = New UIMenuItem(GetGXTEntry("CSHOP_ITEM51")) With {.Tag = "Shorts"}
+            iSmartShoes = New UIMenuItem(GetGXTEntry("CSHOP_ITEM51")) With {.Tag = "SmartShoes"}
+            iTShirt = New UIMenuItem(GetGXTEntry("CSHOP_ITEM3")) With {.Tag = "TShirt"}
 
-            iTankTops = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM45")) With {.Tag = "TankTop"}
-            iTops = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM37")) With {.Tag = "Tops"}
-            iVests = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM51")) With {.Tag = "Vest"}
-            iPoloShirt = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM8")) With {.Tag = "PoloShirt"}
-            iChains = New UIMenuItem(Game.GetGXTEntry("CSHOP_ITEM51")) With {.Tag = "Chain"}
+            iTankTops = New UIMenuItem(GetGXTEntry("CSHOP_ITEM45")) With {.Tag = "TankTop"}
+            iTops = New UIMenuItem(GetGXTEntry("CSHOP_ITEM37")) With {.Tag = "Tops"}
+            iVests = New UIMenuItem(GetGXTEntry("CSHOP_ITEM51")) With {.Tag = "Vest"}
+            iPoloShirt = New UIMenuItem(GetGXTEntry("CSHOP_ITEM8")) With {.Tag = "PoloShirt"}
+            iChains = New UIMenuItem(GetGXTEntry("CSHOP_ITEM51")) With {.Tag = "Chain"}
 
             CreateMichaelWardrobeMenu()
             mOutfitM = mOutfitM.LoadSetClothings("CSHOP_TITLE36", gmMichael, iOutfits, Michael_Outfits, MichaelBanner)
@@ -276,7 +276,7 @@ Module Wardrobe
         Try
             RequestAdditionalText("clo_mnu", "CSHOP_TITLE1")
 
-            gmMichael = New UIMenu("", Game.GetGXTEntry("CSHOP_TITLE1"))
+            gmMichael = New UIMenu("", GetGXTEntry("CSHOP_TITLE1"))
             With gmMichael
                 .SetBannerType(MichaelBanner)
                 .MouseEdgeEnabled = False
@@ -299,7 +299,7 @@ Module Wardrobe
                 .RefreshIndex()
             End With
 
-            gmSuitM = New UIMenu("", Game.GetGXTEntry("CSHOP_TITLE49"))
+            gmSuitM = New UIMenu("", GetGXTEntry("CSHOP_TITLE49"))
             With gmSuitM
                 .SetBannerType(MichaelBanner)
                 .MouseEdgeEnabled = False
@@ -312,7 +312,7 @@ Module Wardrobe
                 gmMichael.BindMenuToItem(gmSuitM, giSuits)
             End With
 
-            gmGlassesM = New UIMenu("", Game.GetGXTEntry("CSHOP_TITLE42"))
+            gmGlassesM = New UIMenu("", GetGXTEntry("CSHOP_TITLE42"))
             With gmGlassesM
                 .SetBannerType(MichaelBanner)
                 .MouseEdgeEnabled = False
@@ -324,7 +324,7 @@ Module Wardrobe
                 gmMichael.BindMenuToItem(gmGlassesM, giGlasses)
             End With
 
-            gmCasualJacketsM = New UIMenu("", Game.GetGXTEntry("CSHOP_TITLE79"))
+            gmCasualJacketsM = New UIMenu("", GetGXTEntry("CSHOP_TITLE79"))
             With gmCasualJacketsM
                 .SetBannerType(MichaelBanner)
                 .MouseEdgeEnabled = False
@@ -343,7 +343,7 @@ Module Wardrobe
         Try
             RequestAdditionalText("clo_mnu", "CSHOP_TITLE1")
 
-            gmFranklin = New UIMenu("", Game.GetGXTEntry("CSHOP_TITLE1"))
+            gmFranklin = New UIMenu("", GetGXTEntry("CSHOP_TITLE1"))
             With gmFranklin
                 .SetBannerType(FranklinBanner)
                 .MouseEdgeEnabled = False
@@ -367,7 +367,7 @@ Module Wardrobe
                 .RefreshIndex()
             End With
 
-            gmSuitF = New UIMenu("", Game.GetGXTEntry("CSHOP_TITLE49"))
+            gmSuitF = New UIMenu("", GetGXTEntry("CSHOP_TITLE49"))
             With gmSuitF
                 .SetBannerType(FranklinBanner)
                 .MouseEdgeEnabled = False
@@ -382,7 +382,7 @@ Module Wardrobe
                 gmFranklin.BindMenuToItem(gmSuitF, giSuits)
             End With
 
-            gmCasualJacketsF = New UIMenu("", Game.GetGXTEntry("CSHOP_TITLE79"))
+            gmCasualJacketsF = New UIMenu("", GetGXTEntry("CSHOP_TITLE79"))
             With gmCasualJacketsF
                 .SetBannerType(FranklinBanner)
                 .MouseEdgeEnabled = False
@@ -393,7 +393,7 @@ Module Wardrobe
                 gmFranklin.BindMenuToItem(gmCasualJacketsF, giCasualJackets)
             End With
 
-            gmGlassesF = New UIMenu("", Game.GetGXTEntry("CSHOP_TITLE42"))
+            gmGlassesF = New UIMenu("", GetGXTEntry("CSHOP_TITLE42"))
             With gmGlassesF
                 .SetBannerType(FranklinBanner)
                 .MouseEdgeEnabled = False
@@ -404,7 +404,7 @@ Module Wardrobe
                 gmFranklin.BindMenuToItem(gmGlassesF, giGlasses)
             End With
 
-            gmHatsF = New UIMenu("", Game.GetGXTEntry("CSHOP_TITLE40"))
+            gmHatsF = New UIMenu("", GetGXTEntry("CSHOP_TITLE40"))
             With gmHatsF
                 .SetBannerType(FranklinBanner)
                 .MouseEdgeEnabled = False
@@ -423,7 +423,7 @@ Module Wardrobe
         Try
             RequestAdditionalText("clo_mnu", "CSHOP_TITLE1")
 
-            gmTrevor = New UIMenu("", Game.GetGXTEntry("CSHOP_TITLE1"))
+            gmTrevor = New UIMenu("", GetGXTEntry("CSHOP_TITLE1"))
             With gmTrevor
                 .SetBannerType(TrevorBanner)
                 .MouseEdgeEnabled = False
@@ -447,7 +447,7 @@ Module Wardrobe
                 .RefreshIndex()
             End With
 
-            gmSuitT = New UIMenu("", Game.GetGXTEntry("CSHOP_TITLE49"))
+            gmSuitT = New UIMenu("", GetGXTEntry("CSHOP_TITLE49"))
             With gmSuitT
                 .SetBannerType(TrevorBanner)
                 .MouseEdgeEnabled = False
@@ -459,7 +459,7 @@ Module Wardrobe
                 gmTrevor.BindMenuToItem(gmSuitT, giSuits)
             End With
 
-            gmGlassesT = New UIMenu("", Game.GetGXTEntry("CSHOP_TITLE42"))
+            gmGlassesT = New UIMenu("", GetGXTEntry("CSHOP_TITLE42"))
             With gmGlassesT
                 .SetBannerType(TrevorBanner)
                 .MouseEdgeEnabled = False
@@ -479,7 +479,7 @@ Module Wardrobe
         Try
             RequestAdditionalText("clo_mnu", "CSHOP_TITLE1")
 
-            menu = New UIMenu(Game.Player.Name, Game.GetGXTEntry("CSHOP_TITLE1"))
+            menu = New UIMenu(Game.Player.Name, GetGXTEntry("CSHOP_TITLE1"))
             With menu
                 .MouseEdgeEnabled = False
                 MenuPool.Add(menu)
@@ -500,7 +500,7 @@ Module Wardrobe
     <Extension>
     Public Function LoadSetClothings(menu As UIMenu, titleGXT As String, bindMenu As UIMenu, bindItem As UIMenuItem, list As List(Of ClothingSet), Optional banner As Object = Nothing) As UIMenu
         Try
-            menu = New UIMenu(If(banner Is Nothing, Game.Player.Name, ""), Game.GetGXTEntry(titleGXT))
+            menu = New UIMenu(If(banner Is Nothing, Game.Player.Name, ""), GetGXTEntry(titleGXT))
             With menu
                 If Not banner Is Nothing Then .SetBannerType(banner)
                 .MouseEdgeEnabled = False
@@ -520,7 +520,7 @@ Module Wardrobe
     <Extension>
     Public Function LoadSingleClothings(menu As UIMenu, titleGXT As String, bindMenu As UIMenu, bindItem As UIMenuItem, list As List(Of Clothing), Optional banner As Object = Nothing) As UIMenu
         Try
-            menu = New UIMenu(If(banner Is Nothing, Game.Player.Name, ""), Game.GetGXTEntry(titleGXT))
+            menu = New UIMenu(If(banner Is Nothing, Game.Player.Name, ""), GetGXTEntry(titleGXT))
             With menu
                 If Not banner Is Nothing Then .SetBannerType(banner)
                 .MouseEdgeEnabled = False

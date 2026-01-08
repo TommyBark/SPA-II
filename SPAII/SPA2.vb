@@ -54,11 +54,11 @@ Public Class SPA2
                         If Not MenuPool.IsAnyMenuOpen() AndAlso Not PP.IsInVehicle Then
                             Select Case bd.BuildingType
                                 Case eBuildingType.Apartment, eBuildingType.ClubHouse
-                                    UI.ShowHelpMessage(Game.GetGXTEntry("MP_PROP_PUR0"))
+                                    ShowHelpMessage(GetGXTEntry("MP_PROP_PUR0"))
                                 Case eBuildingType.Garage, eBuildingType.Hangar
-                                    UI.ShowHelpMessage(Game.GetGXTEntry("MP_PROP_PUR1"))
+                                    ShowHelpMessage(GetGXTEntry("MP_PROP_PUR1"))
                                 Case eBuildingType.Office, eBuildingType.Bunker, eBuildingType.NightClub, eBuildingType.Warehouse
-                                    UI.ShowHelpMessage(Game.GetGXTEntry("MP_PROP_OFF_BUY"))
+                                    ShowHelpMessage(GetGXTEntry("MP_PROP_OFF_BUY"))
                             End Select
                             If Game.IsControlJustReleased(0, GameControl.Context) Then
                                 FadeScreen(1)
@@ -75,11 +75,11 @@ Public Class SPA2
                         If Not MenuPool.IsAnyMenuOpen() AndAlso Not PP.IsInVehicle Then
                             Select Case bd.BuildingType
                                 Case eBuildingType.Apartment
-                                    UI.ShowHelpMessage(Game.GetGXTEntry("MP_PROP_BUZZ1"))
+                                    ShowHelpMessage(GetGXTEntry("MP_PROP_BUZZ1"))
                                 Case eBuildingType.ClubHouse
-                                    UI.ShowHelpMessage(Game.GetGXTEntry("MP_BUZZ_CLU"))
+                                    ShowHelpMessage(GetGXTEntry("MP_BUZZ_CLU"))
                                 Case eBuildingType.Office
-                                    UI.ShowHelpMessage(Game.GetGXTEntry("MP_BUZZ_OFF"))
+                                    ShowHelpMessage(GetGXTEntry("MP_BUZZ_OFF"))
                             End Select
                             If Game.IsControlJustReleased(0, GameControl.Context) Then
                                 Select Case bd.BuildingType
@@ -97,7 +97,7 @@ Public Class SPA2
                     'Open Garage Menu
                     If bd.GarageDistance <= 5.0F Then
                         If Not MenuPool.IsAnyMenuOpen Then
-                            UI.ShowHelpMessage(Game.GetGXTEntry("MP_PROP_BUZZ1B"))
+                            ShowHelpMessage(GetGXTEntry("MP_PROP_BUZZ1B"))
                             If Game.IsControlJustReleased(0, GameControl.Context) Then
                                 FadeScreen(1)
                                 bd.GrgMenu.Visible = True
@@ -147,11 +147,11 @@ Public Class SPA2
                         For a As Integer = 0 To bd.Apartments.Count - 1
                             Dim apt As ApartmentClass = bd.Apartments(a)
                             If apt.ExitDistance <= 3000.0F Then
-                                If Not apt.ApartmentDoorPos = QuaternionZero() Then apt.ApartmentDoorPos.ToVector3.DrawMarker(Color.Red, text:=$"Door Pos {apt.FriendlyName}")
-                                If Not apt.ApartmentInPos = Vector3.Zero Then apt.ApartmentInPos.DrawMarker(Color.Green, text:=$"Teleport in Pos {apt.FriendlyName}")
-                                If Not apt.ApartmentOutPos = Vector3.Zero Then apt.ApartmentOutPos.DrawMarker(Color.Blue, text:=$"Exit Pos {apt.FriendlyName}")
-                                If Not apt.WardrobePos = QuaternionZero() Then apt.WardrobePos.ToVector3.DrawMarker(Color.Purple, text:=$"Wardrobe Pos {apt.FriendlyName}")
-                                If Not apt.SavePos = Vector3.Zero Then apt.SavePos.DrawMarker(Color.Pink, text:=$"Save Pos {apt.FriendlyName}")
+                                If Not apt.ApartmentDoorPos = QuaternionZero() Then apt.ApartmentDoorPos.ToVector3.DrawMarker(Color.Red, text:=$"Door Pos {apt.LocalizedName}")
+                                If Not apt.ApartmentInPos = Vector3.Zero Then apt.ApartmentInPos.DrawMarker(Color.Green, text:=$"Teleport in Pos {apt.LocalizedName}")
+                                If Not apt.ApartmentOutPos = Vector3.Zero Then apt.ApartmentOutPos.DrawMarker(Color.Blue, text:=$"Exit Pos {apt.LocalizedName}")
+                                If Not apt.WardrobePos = QuaternionZero() Then apt.WardrobePos.ToVector3.DrawMarker(Color.Purple, text:=$"Wardrobe Pos {apt.LocalizedName}")
+                                If Not apt.SavePos = Vector3.Zero Then apt.SavePos.DrawMarker(Color.Pink, text:=$"Save Pos {apt.LocalizedName}")
                             End If
                         Next
                     End If
@@ -179,9 +179,9 @@ Public Class SPA2
                 'Hide vehicle blip
                 If PP.LastVehicle.IsPersonalVehicle Then
                     If PP.IsInVehicle() Then
-                        If PP.LastVehicle.CurrentBlip.Alpha = 255 Then PP.LastVehicle.CurrentBlip.Alpha = 0
+                        If PP.LastVehicle.AttachedBlip.Alpha = 255 Then PP.LastVehicle.AttachedBlip.Alpha = 0
                     Else
-                        If PP.LastVehicle.CurrentBlip.Alpha = 0 Then PP.LastVehicle.CurrentBlip.Alpha = 255
+                        If PP.LastVehicle.AttachedBlip.Alpha = 0 Then PP.LastVehicle.AttachedBlip.Alpha = 255
                     End If
                 End If
 
@@ -217,7 +217,7 @@ Public Class SPA2
         Next
 
         For Each vehicle In outVehicleList
-            vehicle.CurrentBlip.Remove()
+            vehicle.AttachedBlip.Remove()
             vehicle.Delete()
         Next
 
@@ -246,7 +246,7 @@ Public Class SPA2
                     Dim gpcp = Game.Player.Character.Position
                     Logger.Logg($"New Vector3({gpcp.X}F, {gpcp.Y}F, {gpcp.Z - 1.0F}F)")
                 End If
-                UI.ShowSubtitle("Position copied")
+                ShowSubtitle("Position copied")
             End If
 
             If Game.IsKeyPressed(Keys.Down) Then
@@ -259,20 +259,20 @@ Public Class SPA2
                     Dim head = Game.Player.Character.Heading
                     Logger.Logg($"New Quaternion({gpcp.X}F, {gpcp.Y}F, {gpcp.Z - 1.0F}F, {head}F)")
                 End If
-                UI.ShowSubtitle("Quaternion copied")
+                ShowSubtitle("Quaternion copied")
             End If
 
             If Game.IsKeyPressed(Keys.Left) Then
                 If DebugCamera.IsEnabled Then
                     Dim cam = DebugCamera.Camera
                     Logger.Logg($"New CameraPRH(New Vector3({cam.Position.X}F, {cam.Position.Y}F, {cam.Position.Z}F), New Vector3({cam.Rotation.X}F, {cam.Rotation.Y}F, {cam.Rotation.Z}F), {cam.FieldOfView}F)")
-                    UI.ShowSubtitle("Gameplay camera copied")
+                    ShowSubtitle("Gameplay camera copied")
                 End If
             End If
 
             If Game.IsKeyPressed(Keys.Right) Then
                 Logger.Logg(debug3rdLine)
-                UI.ShowSubtitle("Prop captured")
+                ShowSubtitle("Prop captured")
             End If
 
             If Game.IsKeyPressed(Keys.Delete) Then

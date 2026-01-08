@@ -12,7 +12,7 @@ Module HighEndApartment
                     'Using Wardrobe
                     If apt.WardrobeDistance() <= 2.0F Then
                         If Not MenuPool.IsAnyMenuOpen Then
-                            UI.ShowHelpMessage(Game.GetGXTEntry("WARD_TRIG").Replace("~a~", "~INPUT_CONTEXT~"))
+                            ShowHelpMessage(GetGXTEntry("WARD_TRIG").Replace("~a~", "~INPUT_CONTEXT~"))
                             If Game.IsControlJustReleased(0, Control.Context) Then
                                 MakeCamera(PP, apt.WardrobePos.ToVector3, apt.WardrobePos.W)
                             End If
@@ -28,7 +28,7 @@ Module HighEndApartment
 
                     'Get into bed
                     If apt.SaveDistance <= 2.0F Then
-                        UI.ShowHelpMessage(Game.GetGXTEntry("SA_BED_IN"))
+                        ShowHelpMessage(GetGXTEntry("SA_BED_IN"))
                         If Game.IsControlJustReleased(0, Control.Context) Then
                             Sleep(apt)
                         End If

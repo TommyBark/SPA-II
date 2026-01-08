@@ -61,7 +61,7 @@ Public Class BuildingClass
             With GarageBlip
                 .IsShortRange = True
                 .Sprite = BlipSprite.Garage
-                .Name = Game.GetGXTEntry("BLIP_357")
+                .Name = GetGXTEntry("BLIP_357")
                 .Color = GetBlipColor
             End With
         End If
@@ -74,22 +74,22 @@ Public Class BuildingClass
                     Select Case BuildingType
                         Case eBuildingType.Apartment
                             .Sprite = BlipSprite.SafehouseForSale
-                            .Name = Game.GetGXTEntry("MP_PROP_SALE1") 'Apartment For Sale
+                            .Name = GetGXTEntry("MP_PROP_SALE1") 'Apartment For Sale
                         Case eBuildingType.Office
                             .Sprite = BlipSprite.OfficeForSale
-                            .Name = Game.GetGXTEntry("MP_PROP_SALE2") 'Office For Sale
+                            .Name = GetGXTEntry("MP_PROP_SALE2") 'Office For Sale
                         Case eBuildingType.ClubHouse, eBuildingType.NightClub, eBuildingType.Bunker
                             .Sprite = BlipSprite.BusinessForSale
-                            .Name = Game.GetGXTEntry("BLIP_373") 'Property For Sale
+                            .Name = GetGXTEntry("BLIP_373") 'Property For Sale
                         Case eBuildingType.Garage
                             .Sprite = BlipSprite.GarageForSale
-                            .Name = Game.GetGXTEntry("MP_PROP_SALE0") 'Garage For Sale
+                            .Name = GetGXTEntry("MP_PROP_SALE0") 'Garage For Sale
                         Case eBuildingType.Hangar
                             .Sprite = BlipSprite.HangarForSale
-                            .Name = Game.GetGXTEntry("BLIP_372") 'Hangar For Sale
+                            .Name = GetGXTEntry("BLIP_372") 'Hangar For Sale
                         Case eBuildingType.Warehouse
                             .Sprite = BlipSprite.WarehouseForSale
-                            .Name = Game.GetGXTEntry("BLIP_474") 'Warehouse For Sale
+                            .Name = GetGXTEntry("BLIP_474") 'Warehouse For Sale
                     End Select
                 Else
                     Select Case BuildingType
@@ -117,40 +117,40 @@ Public Class BuildingClass
                 Select Case BuildingType
                     Case eBuildingType.Apartment
                         .Sprite = BlipSprite.Safehouse
-                        .Name = Game.GetGXTEntry("CELL_2630")
+                        .Name = GetGXTEntry("CELL_2630")
                     Case eBuildingType.Office
                         .Sprite = BlipSprite.Office
-                        .Name = Game.GetGXTEntry("BLIP_475")
+                        .Name = GetGXTEntry("BLIP_475")
                     Case eBuildingType.ClubHouse
                         .Sprite = BlipSprite.BikerClubhouse
-                        .Name = Game.GetGXTEntry("PM_SPAWN_CLUBH")
+                        .Name = GetGXTEntry("PM_SPAWN_CLUBH")
                     Case eBuildingType.Garage
                         .Sprite = BlipSprite.Garage
-                        .Name = Game.GetGXTEntry("BLIP_357")
+                        .Name = GetGXTEntry("BLIP_357")
                     Case eBuildingType.Hangar
                         .Sprite = BlipSprite.GTAOHangar
-                        .Name = Game.GetGXTEntry("BLIP_359")
+                        .Name = GetGXTEntry("BLIP_359")
                     Case eBuildingType.NightClub
                         .Sprite = BlipSprite.NightclubProperty
-                        .Name = Game.GetGXTEntry("CELL_CLUB")
+                        .Name = GetGXTEntry("CELL_CLUB")
                     Case eBuildingType.Warehouse
                         .Sprite = BlipSprite.Warehouse
-                        .Name = Game.GetGXTEntry("BLIP_473")
+                        .Name = GetGXTEntry("BLIP_473")
                     Case eBuildingType.Bunker
                         .Sprite = BlipSprite.Bunker
-                        .Name = Game.GetGXTEntry("BLIP_557")
+                        .Name = GetGXTEntry("BLIP_557")
                 End Select
                 .Color = GetBlipColor
             End If
         End With
 
-        BuyMenu = New UIMenu("", Game.GetGXTEntry("MP_PROP_GEN0"), New Point(0, -107))
+        BuyMenu = New UIMenu("", GetGXTEntry("MP_PROP_GEN0"), New Point(0, -107))
         BuyMenu.SetBannerType(MenuBanner)
         BuyMenu.MouseEdgeEnabled = False
         MenuPool.Add(BuyMenu)
         With BuyMenu
             For Each apt As ApartmentClass In Apartments
-                Dim item As New UIMenuItem(Game.GetGXTEntry(apt.Name), Game.GetGXTEntry(apt.Description).Truncate)
+                Dim item As New UIMenuItem(GetGXTEntry(apt.Name), GetGXTEntry(apt.Description).Truncate)
                 With item
                     Select Case config.GetValue(Of eOwner)("BUILDING", apt.Name, eOwner.Nobody)
                         Case eOwner.Nobody 'For Sale
@@ -172,13 +172,13 @@ Public Class BuildingClass
             .RefreshIndex()
         End With
 
-        AptMenu = New UIMenu("", Game.GetGXTEntry("MP_PROP_GEN2A"), New Point(0, -107))
+        AptMenu = New UIMenu("", GetGXTEntry("MP_PROP_GEN2A"), New Point(0, -107))
         AptMenu.SetBannerType(MenuBanner)
         AptMenu.MouseEdgeEnabled = False
         MenuPool.Add(AptMenu)
         With AptMenu
             For Each apt As ApartmentClass In Apartments
-                Dim item As New UIMenuItem(Game.GetGXTEntry(apt.Name), Game.GetGXTEntry(apt.Description).Truncate)
+                Dim item As New UIMenuItem(GetGXTEntry(apt.Name), GetGXTEntry(apt.Description).Truncate)
                 With item
                     Select Case config.GetValue(Of eOwner)("BUILDING", apt.Name, eOwner.Nobody)
                         Case eOwner.Nobody 'For Sale
@@ -199,13 +199,13 @@ Public Class BuildingClass
             .RefreshIndex()
         End With
 
-        GrgMenu = New UIMenu("", Game.GetGXTEntry("MP_PROP_GEN2B"), New Point(0, -107))
+        GrgMenu = New UIMenu("", GetGXTEntry("MP_PROP_GEN2B"), New Point(0, -107))
         GrgMenu.SetBannerType(MenuBanner)
         GrgMenu.MouseEdgeEnabled = False
         MenuPool.Add(GrgMenu)
         With GrgMenu
             For Each apt In Apartments
-                Dim item As New UIMenuItem(Game.GetGXTEntry(apt.Name), Game.GetGXTEntry(apt.Description).Truncate)
+                Dim item As New UIMenuItem(GetGXTEntry(apt.Name), GetGXTEntry(apt.Description).Truncate)
                 With item
                     Select Case config.GetValue(Of eOwner)("BUILDING", apt.Name, eOwner.Nobody)
                         Case eOwner.Nobody 'For Sale
@@ -246,7 +246,7 @@ Public Class BuildingClass
     Public Sub RefreshBuyMenu()
         BuyMenu.MenuItems.Clear()
         For Each apt In Apartments
-            Dim item As New UIMenuItem(Game.GetGXTEntry(apt.Name), Game.GetGXTEntry(apt.Description).Truncate)
+            Dim item As New UIMenuItem(GetGXTEntry(apt.Name), GetGXTEntry(apt.Description).Truncate)
             With item
                 Select Case config.GetValue(Of eOwner)("BUILDING", apt.Name, eOwner.Nobody)
                     Case eOwner.Nobody 'For Sale
@@ -271,7 +271,7 @@ Public Class BuildingClass
     Public Sub RefreshAptMenu()
         AptMenu.MenuItems.Clear()
         For Each apt In Apartments
-            Dim item As New UIMenuItem(Game.GetGXTEntry(apt.Name), Game.GetGXTEntry(apt.Description).Truncate)
+            Dim item As New UIMenuItem(GetGXTEntry(apt.Name), GetGXTEntry(apt.Description).Truncate)
             With item
                 Select Case config.GetValue(Of eOwner)("BUILDING", apt.Name, eOwner.Nobody)
                     Case eOwner.Nobody 'For Sale
@@ -295,7 +295,7 @@ Public Class BuildingClass
     Public Sub RefreshGrgMenu()
         GrgMenu.MenuItems.Clear()
         For Each apt In Apartments
-            Dim item As New UIMenuItem(Game.GetGXTEntry(apt.Name), Game.GetGXTEntry(apt.Description).Truncate)
+            Dim item As New UIMenuItem(GetGXTEntry(apt.Name), GetGXTEntry(apt.Description).Truncate)
             With item
                 Select Case config.GetValue(Of eOwner)("BUILDING", apt.Name, eOwner.Nobody)
                     Case eOwner.Nobody 'For Sale
@@ -374,7 +374,7 @@ Public Class BuildingClass
             With GarageBlip
                 .IsShortRange = True
                 .Sprite = BlipSprite.Garage
-                .Name = Game.GetGXTEntry("BLIP_357")
+                .Name = GetGXTEntry("BLIP_357")
                 .Color = GetBlipColor
             End With
         End If
@@ -387,22 +387,22 @@ Public Class BuildingClass
                     Select Case BuildingType
                         Case eBuildingType.Apartment
                             .Sprite = BlipSprite.SafehouseForSale
-                            .Name = Game.GetGXTEntry("MP_PROP_SALE1") 'Apartment For Sale
+                            .Name = GetGXTEntry("MP_PROP_SALE1") 'Apartment For Sale
                         Case eBuildingType.Office
                             .Sprite = BlipSprite.OfficeForSale
-                            .Name = Game.GetGXTEntry("MP_PROP_SALE2") 'Office For Sale
+                            .Name = GetGXTEntry("MP_PROP_SALE2") 'Office For Sale
                         Case eBuildingType.ClubHouse, eBuildingType.NightClub, eBuildingType.Bunker
                             .Sprite = BlipSprite.BusinessForSale
-                            .Name = Game.GetGXTEntry("BLIP_373") 'Property For Sale
+                            .Name = GetGXTEntry("BLIP_373") 'Property For Sale
                         Case eBuildingType.Garage
                             .Sprite = BlipSprite.GarageForSale
-                            .Name = Game.GetGXTEntry("MP_PROP_SALE0") 'Garage For Sale
+                            .Name = GetGXTEntry("MP_PROP_SALE0") 'Garage For Sale
                         Case eBuildingType.Hangar
                             .Sprite = BlipSprite.HangarForSale
-                            .Name = Game.GetGXTEntry("BLIP_372") 'Hangar For Sale
+                            .Name = GetGXTEntry("BLIP_372") 'Hangar For Sale
                         Case eBuildingType.Warehouse
                             .Sprite = BlipSprite.WarehouseForSale
-                            .Name = Game.GetGXTEntry("BLIP_474") 'Warehouse For Sale
+                            .Name = GetGXTEntry("BLIP_474") 'Warehouse For Sale
                     End Select
                 Else
                     Select Case BuildingType
@@ -430,28 +430,28 @@ Public Class BuildingClass
                 Select Case BuildingType
                     Case eBuildingType.Apartment
                         .Sprite = BlipSprite.Safehouse
-                        .Name = Game.GetGXTEntry("CELL_2630")
+                        .Name = GetGXTEntry("CELL_2630")
                     Case eBuildingType.Office
                         .Sprite = BlipSprite.Office
-                        .Name = Game.GetGXTEntry("BLIP_475")
+                        .Name = GetGXTEntry("BLIP_475")
                     Case eBuildingType.ClubHouse
                         .Sprite = BlipSprite.BikerClubhouse
-                        .Name = Game.GetGXTEntry("PM_SPAWN_CLUBH")
+                        .Name = GetGXTEntry("PM_SPAWN_CLUBH")
                     Case eBuildingType.Garage
                         .Sprite = BlipSprite.Garage
-                        .Name = Game.GetGXTEntry("BLIP_357")
+                        .Name = GetGXTEntry("BLIP_357")
                     Case eBuildingType.Hangar
                         .Sprite = BlipSprite.GTAOHangar
-                        .Name = Game.GetGXTEntry("BLIP_359")
+                        .Name = GetGXTEntry("BLIP_359")
                     Case eBuildingType.NightClub
                         .Sprite = BlipSprite.NightclubProperty
-                        .Name = Game.GetGXTEntry("CELL_CLUB")
+                        .Name = GetGXTEntry("CELL_CLUB")
                     Case eBuildingType.Warehouse
                         .Sprite = BlipSprite.Warehouse
-                        .Name = Game.GetGXTEntry("BLIP_473")
+                        .Name = GetGXTEntry("BLIP_473")
                     Case eBuildingType.Bunker
                         .Sprite = BlipSprite.Bunker
-                        .Name = Game.GetGXTEntry("BLIP_557")
+                        .Name = GetGXTEntry("BLIP_557")
                 End Select
                 .Color = GetBlipColor
             End If
@@ -540,8 +540,8 @@ Public Class BuildingClass
                 If PP.IsInVehicle Then
                     'In Vehicle
                     Dim currVeh = PP.CurrentVehicle
-                    Dim FromApartment = currVeh.GetInt(vehIdDecor)
-                    Dim UniqueID = currVeh.GetInt(vehUidDecor)
+                    Dim FromApartment = currVeh.GetDecorInt(vehIdDecor)
+                    Dim UniqueID = currVeh.GetDecorInt(vehUidDecor)
 
                     PP.Task.WarpOutOfVehicle(PP.CurrentVehicle)
 
@@ -562,7 +562,7 @@ Public Class BuildingClass
                     newVeh.Save()
                     PP.Position = TwoCarGarage.Elevator
                     TwoCarGarage.LoadVehiclesSetPlayerPos(uid)
-                    currVeh.CurrentBlip.Remove()
+                    currVeh.AttachedBlip.Remove()
                     currVeh.Delete()
                     Script.Wait(1000)
                     PP.Task.LeaveVehicle(LeaveVehicleFlags.None)
@@ -581,8 +581,8 @@ Public Class BuildingClass
                 If PP.IsInVehicle Then
                     'In Vehicle
                     Dim currVeh = PP.CurrentVehicle
-                    Dim FromApartment = currVeh.GetInt(vehIdDecor)
-                    Dim UniqueID = currVeh.GetInt(vehUidDecor)
+                    Dim FromApartment = currVeh.GetDecorInt(vehIdDecor)
+                    Dim UniqueID = currVeh.GetDecorInt(vehUidDecor)
 
                     PP.Task.WarpOutOfVehicle(PP.CurrentVehicle)
 
@@ -603,7 +603,7 @@ Public Class BuildingClass
                     newVeh.Save()
                     PP.Position = SixCarGarage.Elevator
                     SixCarGarage.LoadVehiclesSetPlayerPos(uid)
-                    currVeh.CurrentBlip.Remove()
+                    currVeh.AttachedBlip.Remove()
                     currVeh.Delete()
                     Script.Wait(1000)
                     PP.Task.LeaveVehicle(LeaveVehicleFlags.None)
@@ -622,8 +622,8 @@ Public Class BuildingClass
                 If PP.IsInVehicle Then
                     'In Vehicle
                     Dim currVeh = PP.CurrentVehicle
-                    Dim FromApartment = currVeh.GetInt(vehIdDecor)
-                    Dim UniqueID = currVeh.GetInt(vehUidDecor)
+                    Dim FromApartment = currVeh.GetDecorInt(vehIdDecor)
+                    Dim UniqueID = currVeh.GetDecorInt(vehUidDecor)
 
                     PP.Task.WarpOutOfVehicle(PP.CurrentVehicle)
 
@@ -644,7 +644,7 @@ Public Class BuildingClass
                     newVeh.Save()
                     PP.Position = TenCarGarage.Elevator
                     TenCarGarage.LoadVehiclesSetPlayerPos(uid)
-                    currVeh.CurrentBlip.Remove()
+                    currVeh.AttachedBlip.Remove()
                     currVeh.Delete()
                     Script.Wait(1000)
                     PP.Task.LeaveVehicle(LeaveVehicleFlags.None)
@@ -679,7 +679,7 @@ Public Class BuildingClass
                             SaveVehicle(selectedApt)
                         Else
                             'Garage is full
-                            UI.ShowSubtitle(Game.GetGXTEntry("WEB_VEH_FULL"))
+                            ShowSubtitle(GetGXTEntry("WEB_VEH_FULL"))
                         End If
                     End If
                 Else
@@ -730,7 +730,7 @@ Public Class BuildingClass
                                 HideHud = False
                                 FadeScreen(0)
                             Else
-                                UI.ShowSubtitle(Game.GetGXTEntry("MP_REP_PROP_4"))
+                                ShowSubtitle(GetGXTEntry("MP_REP_PROP_4"))
                             End If
                         Case Else
                             apt.UpdateApartmentOwner()
@@ -767,7 +767,7 @@ Public Class BuildingClass
             Case eFrontDoor.StandardDoor
                 Door1.UnlockDoor()
         End Select
-        PP.Task.GoTo(BuildingLobby.ToVector3, True, 7000)
+        PP.Task.GoTo(BuildingLobby.ToVector3, 7000)
         Dim scriptCam As Camera = World.CreateCamera(EnterCamera1.Position, EnterCamera1.Rotation, EnterCamera1.FOV)
         Dim interpCam As Camera = World.CreateCamera(EnterCamera2.Position, EnterCamera2.Rotation, EnterCamera2.FOV)
         World.RenderingCamera = scriptCam
@@ -796,7 +796,7 @@ Public Class BuildingClass
             Case eFrontDoor.StandardDoor
                 Door1.UnlockDoor()
         End Select
-        PP.Task.GoTo(BuildingOutPos.ToVector3, False, 7000)
+        PP.Task.GoTo(BuildingOutPos.ToVector3, 7000)
         Dim scriptCam As Camera = World.CreateCamera(EnterCamera2.Position, EnterCamera2.Rotation, EnterCamera2.FOV)
         Dim interpCam As Camera = World.CreateCamera(EnterCamera1.Position, EnterCamera1.Rotation, EnterCamera1.FOV)
         World.RenderingCamera = scriptCam
@@ -908,13 +908,13 @@ Public Class BuildingClass
                 World.RenderingCamera = scriptCam
                 PP.Position = TwoCarGarage.Elevator
                 PP.Heading = TwoCarGarage.ElevatorInside.W - 160.0F
-                PP.Task.GoTo(TwoCarGarage.ElevatorInside.ToVector3, False, duration)
+                PP.Task.GoTo(TwoCarGarage.ElevatorInside.ToVector3, duration)
             Case eGarageType.SixCarGarage
                 Dim scriptCam As Camera = World.CreateCamera(New Vector3(204.9573F, -1001.148F, -98.99999F), New Vector3(1.120068F, 0.00000005337105F, -57.21745F), 50.0F)
                 World.RenderingCamera = scriptCam
                 PP.Position = SixCarGarage.Elevator
                 PP.Heading = SixCarGarage.ElevatorInside.W - 160.0F
-                PP.Task.GoTo(SixCarGarage.ElevatorInside.ToVector3, False, duration)
+                PP.Task.GoTo(SixCarGarage.ElevatorInside.ToVector3, duration)
             Case eGarageType.TenCarGarage
                 Dim scriptCam As Camera = World.CreateCamera(New Vector3(235.6371F, -1003.728F, -98.9999F), New Vector3(2.576892F, -0.00000005341485F, -110.4919F), 50.0F)
                 World.RenderingCamera = scriptCam

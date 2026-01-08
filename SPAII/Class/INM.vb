@@ -168,7 +168,7 @@ Namespace INM
             If Name = "" Then
                 result = LocalizedName
             Else
-                result = Game.GetGXTEntry(Name)
+                result = GetGXTEntry(Name)
             End If
             If result = "NULL" Then Return LocalizedName Else Return result
         End Function
@@ -272,7 +272,7 @@ Namespace INM
             If Name = "" Then
                 result = LocalizedName
             Else
-                result = Game.GetGXTEntry(Name)
+                result = GetGXTEntry(Name)
             End If
             If result = "NULL" Then Return LocalizedName Else Return result
         End Function
@@ -357,7 +357,7 @@ Namespace INM
         End Sub
 
         Public Function Vehicle() As Vehicle
-            Return outVehicleList.Find(Function(x) x.GetInt(vehIdDecor) = VehClass.ApartmentID AndAlso x.GetInt(vehUidDecor) = VehClass.UniqueID)
+            Return outVehicleList.Find(Function(x) x.GetDecorInt(vehIdDecor) = VehClass.ApartmentID AndAlso x.GetDecorInt(vehUidDecor) = VehClass.UniqueID)
         End Function
 
     End Class
